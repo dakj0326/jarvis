@@ -47,6 +47,8 @@ def main(action_list: list):
         else:
             print(f"Failed to execute {action} command. Status code: {response.status_code}")
             print("Response:", response.text)
+            
+        payload.clear()
 
 
 
