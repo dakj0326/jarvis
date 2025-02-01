@@ -81,6 +81,10 @@ class SpeakerToggle(SpeakerAction):
         Defines the state of the toggle
     """
     def __init__(self, speaker: Speaker, state: str):
+        """
+        Constructor function for SpeakerToggle
+        Will raise errors if poorly contructed
+        """
         super().__init__(speaker, "toggle")
         if not isinstance(state, str):
             raise TypeError("state must be of type String")
@@ -92,4 +96,73 @@ class SpeakerToggle(SpeakerAction):
         """Getter for self.state"""
         return self.state
         
+class SpeakerShuffle(SpeakerAction):
+    """
+    Specific Speaker action for shuffling the speaker playlist
+    Child of SpeakerAction
+    
+    Attr:
+    speaker : Speaker
+        super for SpeakerAction 
+    state : str
+        Defines the state of shuffle
+    """
+    def __init__(self, speaker: Speaker, state: str):
+        """
+        Constructor function for SpeakerShuffle
+        Will raise errors if poorly contructed
+        """
+        super().__init__(speaker, "shuffle")
+        if not isinstance(state, str):
+            raise TypeError("state must be of type String")
+        if not (state.lower() == "on" or state.lower() == "off"):
+            raise ValueError("Invalid state format")
+        self.state = state
+    
+    def get_state(self):
+        """Getter for self.state"""
+        return self.state
+
+class SpeakerVolume(SpeakerAction):
+    """
+    Specific Speaker action for setting the speaker volume
+    Child of SpeakerAction
+    
+    Attr:
+    speaker : Speaker
+        super for SpeakerAction 
+    state : str
+        Defines the state of shuffle
+    """
+    def __init__(self, speaker: Speaker, dynamic: bool, dir: bool, volume: float):
+        """
+        Constructor function for SpeakerVolume
+        Will raise errors if poorly contructed
+        """
+        super().__init__(speaker, "volume")
+        if not isinstance(dynamic, bool):
+            raise TypeError("dynamic must be of type bool")
+        if not isinstance(dir, bool):
+            raise TypeError("dir must be of type bool")
+        if not isinstance(volume, float):
+            raise TypeError("volume must be of type float")
+        if not (0 <= volume <= 1):
+            raise ValueError("Invalid volume value")
         
+        if dynamic:
+            if dir:
+                self.volume = self.get_speaker().get_volume() + volume
+                print(self.get_speaker().get_volume())
+            else:
+                self.volume = self.get_speaker().get_volume() - volume
+        else:
+            self.volume = volume
+        
+        if self.volume > 0.6:
+            self.volume = 0.6
+        
+        speaker.set_volume(self.volume)
+    
+    def get_volume(self):
+        """Getter for self.volume"""
+        return self.volume
