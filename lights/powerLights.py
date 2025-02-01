@@ -22,13 +22,23 @@ def main(action_list: list):
     for action in action_list:
         payload["entity_id"] = action.get_light().get_id()
         
+        #Turn on
         if action.get_state().lower() == "on":
-            url = f"{URL}/api/services/light/turn_on"
-            payload["rgb_color"] = action.get_color()
-            payload["brightness"] = action.get_brightness()
-            
+            #Type of light source
+            if "light" in action.get_light().get_id():
+                url = f"{URL}/api/services/light/turn_on"
+                if action.get_light().get_color_comp():
+                    payload["rgb_color"] = action.get_color()
+                if action.get_light().get_bright_comp():
+                    payload["brightness"] = action.get_brightness()
+            elif "switch" in action.get_light().get_id():
+                url = f"{URL}/api/services/switch/turn_on"
+        #Turn off    
         else:
-            url = f"{URL}/api/services/light/turn_off"
+            if "light" in action.get_light().get_id():
+                url = f"{URL}/api/services/light/turn_off"
+            elif "switch" in action.get_light().get_id():
+                url = f"{URL}/api/services/switch/turn_off"
                 
         response = requests.post(url, headers=headers, data=json.dumps(payload))
         
@@ -43,11 +53,11 @@ def main(action_list: list):
 
 
 
-light1 = l.Light("light.hall")
+light1 = entry
 action1 = l.LightAction(light1, "on", (255, 255, 200), None)
-light2 = l.Light("light.korridor")
-action2 = l.LightAction(light2, "on", None, 35)
+light2 = munken
+action2 = l.LightAction(light2, "off", None, None)
 
-main([action1, action2])
+main([action2])
 
 
