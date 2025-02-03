@@ -3,7 +3,7 @@ import time
 
 # Initialize SPI
 spi = spidev.SpiDev()
-spi.open(0, 0)  # Open SPI bus 0, device 0 (CE0)
+spi.open(10, 0)  # Open SPI bus 0, device 0 (CE0)
 spi.max_speed_hz = 1350000  # Set SPI speed
 
 # Function to read MCP3008 channel
@@ -20,7 +20,7 @@ try:
     while True:
         mic_value = read_adc(0)  # Read from CH0
         print(f"Microphone (CH0) Value: {mic_value}")
-        time.sleep(0.1)  # Adjust sampling rate as needed
+        time.sleep(1)  # Adjust sampling rate as needed
 except KeyboardInterrupt:
     print("\nStopped by user.")
 finally:
