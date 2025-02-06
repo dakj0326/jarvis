@@ -21,7 +21,9 @@ try:
         mic_value = read_adc(0)  # Read from CH0
         print(f"CH0 Raw Value: {mic_value}")
         time.sleep(0.5)
+
 except KeyboardInterrupt:
     print("\nStopping...")
+
 finally:
-    spi.close()
+    spi.close()  # Ensure SPI is closed properly
