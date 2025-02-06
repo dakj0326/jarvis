@@ -8,7 +8,7 @@ spi.max_speed_hz = 500000  # Lower clock speed for stability
 
 # Function to read MCP3008 channel
 def read_adc(channel):
-    if channel < 0 or channel > 7:
+    if channel < 0 or channel > 3:
         return -1
     adc = spi.xfer2([1, (8 + channel) << 4, 0])  # Send read command
     data = ((adc[1] & 3) << 8) | adc[2]  # Combine bytes for 10-bit value
