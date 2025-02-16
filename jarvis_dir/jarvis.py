@@ -35,6 +35,7 @@ class Jarvis:
     
     def lights_response(self, _input: str):
         response= self.jarvis.chat.completions.create(
+            model = "gpt-4o-mini",
             messages=[
                 {"role": "system", "content": 
                     "You will only answer in a structured list called 'actions' changing the state of lights"
@@ -61,6 +62,7 @@ class Jarvis:
         
     def speaker_response(self, _input: str):
         response= self.jarvis.chat.completions.create(
+            model = "gpt-4o-mini",
             messages=[
                 {"role": "system", "content": 
                     "You will only answer in a structured list called 'actions' changing the state of speakers"
