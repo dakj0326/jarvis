@@ -12,7 +12,7 @@ from sonos.speakerList import *
 from sonos.speaker import *
 
 
-def main(crude_list: list[SpeakerAction]):
+def main(crude_list: list):
     
     action_list = dectrypt(crude_list)
     
