@@ -65,7 +65,7 @@ def decrypt(crude_dict: list):
         _light = entry
     elif crude_list[0].lower() == "korridor":
         _light = hallway
-    elif crude_list[0].lower() == 'sovrum':
+    elif crude_list[0].lower() == "sovrum":
         _light = bedroom
     elif crude_list[0].lower() == "taklampa":
         _light = livingroom
