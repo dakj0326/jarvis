@@ -55,24 +55,25 @@ def main(crude_list: list):
 
 
 def decrypt(crude_dict: list):
-    light = None
+    _light = None
     
     crude_list = crude_dict["actions"][0]
     
     if crude_list[0].lower() == "fonster":
-        light = window
+        _light = window
     elif crude_list[0].lower() == "hall":
-        light = entry
+        _light = entry
     elif crude_list[0].lower() == "korridor":
-        light = hallway
+        _light = hallway
     elif crude_list[0].lower() == 'sovrum':
-        light = bedroom
+        _light = bedroom
     elif crude_list[0].lower() == "taklampa":
-        light = livingroom
+        _light = livingroom
     elif crude_list[0].lower() == "munken":
-        light = munken
+        _light = munken
         
-    if light != None:
-        return [LightAction(light, crude_list[1], crude_list[2], crude_list[3])] 
+    if _light != None:
+        print(_light.get_id)
+        return [LightAction(_light, crude_list[1], crude_list[2], crude_list[3])] 
     
     return []
