@@ -74,8 +74,11 @@ def decrypt(crude_dict: list):
         
     print("\n\n", type(crude_list[2]), "\n\n")
 
+    rgb = None
+    if crude_list[2] != None:
+        rgb = tuple(crude_list[2])
     
     if _light != None:
-        return [LightAction(_light, crude_list[1], tuple(crude_list[2]), crude_list[3])] 
+        return [LightAction(_light, crude_list[1], rgb, crude_list[3])] 
     
     return []
