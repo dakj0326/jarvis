@@ -8,8 +8,8 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
     
 from utils import *
-from speakerList import *
-from speaker import *
+from sonos.speakerList import *
+from sonos.speaker import *
 
 
 def main(crude_list: list[SpeakerAction]):
