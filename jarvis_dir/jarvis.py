@@ -21,7 +21,7 @@ class Jarvis:
                     "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"},
                 {"role": "user", "content": _input}
             ],
-            response_format={"type": "json"}
+            response_format={"type": "json_object"}
         )
         
         if len(self.conversation_history) > 20:
@@ -45,7 +45,7 @@ class Jarvis:
                     "List format: [id, state ('on'/'off), (R, G, B), brighness (0-100)]"},
                 {"role": "user", "content": _input}
             ],
-            response_format={"type": "json"},
+            response_format={"type": "json_object"},
             max_tokens=100
         )
         return response
@@ -69,7 +69,7 @@ class Jarvis:
                     "List format: [id, action, toggle state ('play'/'pause'), shuffle state ('on'/'off'), volume_dynamic, dir, volume]"},
                 {"role": "user", "content": _input}
             ],
-            response_format={"type": "json"},
+            response_format={"type": "json_object"},
             max_tokens=100
         )
         return response
