@@ -16,6 +16,7 @@ class Jarvis:
             messages=[
                 {"role": "system", "content": 
                     "You are Jarvis, a home assitant."
+                    "Always respond in valid JSON format with two keys: 'message' and 'needs_commands'."
                     "Give short and direct answers, often calling the user sir, always in english."
                     "You can control speakers and lights in the appartment."
                     "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"},
@@ -34,6 +35,7 @@ class Jarvis:
             messages=[
                 {"role": "system", "content": 
                     "You will only answer in a structured list called 'actions' changing the state of lights"
+                    "Always respond in valid JSON format"
                     "if an element is not specified, leave as None.  if no light is defined, choose id for everyone"
                     "id for window: 'fonster'"
                     "id for entrance: 'hall'"
@@ -55,6 +57,7 @@ class Jarvis:
             messages=[
                 {"role": "system", "content": 
                     "You will only answer in a structured list called 'actions' changing the state of speakers"
+                    "Always respond in valid JSON format"
                     "if an element is not specified, leave as None. if no speaker is defined, choose id for everyone"
                     "id for tv speakers and livingroom speakers: 'tv_rum'"
                     "id for bedroom: 'sovrum'"
