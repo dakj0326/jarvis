@@ -57,7 +57,7 @@ def main(crude_list: list):
 def decrypt(crude_dict: list):
     light = None
     
-    crude_list = crude_dict["actions"]
+    crude_list = crude_dict["actions"][0]
     
     if crude_list[0].lower() == "fonster":
         light = window
