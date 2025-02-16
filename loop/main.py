@@ -36,4 +36,5 @@ while True:
         
     if len(speaker_response) != 0:
         speakerMain.main(speaker_response)
-        
+    
+    
