@@ -71,14 +71,3 @@ def decrypt(crude_list: list):
         return [LightAction(light, crude_list[1], crude_list[2], crude_list[3])] 
     
     return []
-
-
-
-light1 = entry
-action1 = l.LightAction(light1, "on", (255, 255, 200), None)
-light2 = munken
-action2 = LightAction(light2, "off", None, None)
-
-main([action2])
-
-

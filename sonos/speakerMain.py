@@ -84,8 +84,3 @@ def responser(url: str, payload: dict, action):
     else:
         print(f"Failed to execute {action} command. Status code: {response.status_code}")
         print("Response:", response.text)
-
-action = SpeakerVolume(bedroom, True, True, 0.1)
-main([action])
-
-print(bedroom.get_volume())
