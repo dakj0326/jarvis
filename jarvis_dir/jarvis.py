@@ -25,10 +25,13 @@ class Jarvis:
             response_format={"type": "json_object"}
         )
         
+        response_dict = response.choices[0].message.content  # Extract the response content
+        chat_response = json.loads(response_dict)
+        
         if len(self.conversation_history) > 20:
             self.conversation_history = self.conversation_history[-10:]
             
-        return response
+        return chat_response
     
     def lights_response(self, _input: str):
         response= self.jarvis.chat.completions.create(
@@ -50,7 +53,11 @@ class Jarvis:
             response_format={"type": "json_object"},
             max_tokens=100
         )
-        return response
+        
+        response_dict = response.choices[0].message.content  # Extract the response content
+        chat_response = json.loads(response_dict)
+        
+        return chat_response
         
     def speaker_response(self, _input: str):
         response= self.jarvis.chat.completions.create(
@@ -75,4 +82,7 @@ class Jarvis:
             response_format={"type": "json_object"},
             max_tokens=100
         )
-        return response
+        
+        response_dict = response.choices[0].message.content  # Extract the response content
+        chat_response = json.loads(response_dict)
+        return chat_response
