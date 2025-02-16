@@ -1,0 +1,74 @@
+
+import openai
+import json
+import os
+
+class Jarvis:
+    def __init__(self):
+        self.jarvis =  openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.conversation_history = []
+        
+    def fast_response(self, _input: str):
+        self.conversation_history.append({"role": "user", "content": _input})
+        
+        response = self.jarvis.chat.completions.create(
+            model = "gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": 
+                    "You are Jarvis, a home assitant."
+                    "Give short and direct answers, often calling the user sir, always in english."
+                    "You can control speakers and lights in the appartment."
+                    "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"},
+                {"role": "user", "content": _input}
+            ],
+            response_format="json"
+        )
+        
+        if len(self.conversation_history) > 20:
+            self.conversation_history = self.conversation_history[-10:]
+            
+        return response
+    
+    def lights_response(self, _input: str):
+        response= self.jarvis.chat.completions.create(
+            messages=[
+                {"role": "system", "content": 
+                    "You will only answer in a structured list called 'actions' changing the state of lights"
+                    "if an element is not specified, leave as None.  if no light is defined, choose id for everyone"
+                    "id for window: 'fonster'"
+                    "id for entrance: 'hall'"
+                    "id for hallway: 'korridor'"
+                    "id for bedroom: 'sovrum'"
+                    "id for ceiling lamp: 'taklampa'"
+                    "if for everyone: 'all'"
+                    "List format: [id, state ('on'/'off), (R, G, B), brighness (0-100)]"},
+                {"role": "user", "content": _input}
+            ],
+            response_format="json",
+            max_tokens=100
+        )
+        return response
+        
+    def speaker_response(self, _input: str):
+        response= self.jarvis.chat.completions.create(
+            messages=[
+                {"role": "system", "content": 
+                    "You will only answer in a structured list called 'actions' changing the state of speakers"
+                    "if an element is not specified, leave as None. if no speaker is defined, choose id for everyone"
+                    "id for tv speakers: 'tv_rum'"
+                    "id for bedroom: 'sovrum'"
+                    "id for bathroom: 'sonos_roam'"
+                    "id for everyone: 'all'"
+                    "action for turning on or off: 'toggle'"
+                    "action for volume: 'volume'"
+                    "action for shuffle: 'shuffle'"
+                    "if no specific wanted volume float is asked:  bool volume_dynamic = True else False"
+                    "bool dir = True when wanting to increase volume else False"
+                    "if no specific volume float is asked: 'a little' -> volume = 0.1, alot -> volume = 0.25"
+                    "List format: [id, action, toggle state ('on'/'off'), shuffle state ('on'/'off'), volume_dynamic, dir, ]"},
+                {"role": "user", "content": _input}
+            ],
+            response_format="json",
+            max_tokens=100
+        )
+        return response

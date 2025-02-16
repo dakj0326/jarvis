@@ -38,7 +38,6 @@ def shuffle_speaker(action: SpeakerShuffle):
     url = f"{URL}/api/services/media_player/shuffle_set"
     payload = {"entity_id": action.get_speaker().get_id(), "shuffle": 'false'}
     if action.get_state().lower() == "on":
-        print("hi")
         payload["shuffle"] = 'true'
 
     responser(url, payload, action)
