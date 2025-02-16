@@ -1,5 +1,5 @@
 
-import light as l
+import lights.light as l
 
 entry = l.Light("light.hallway", True, True)
 window = l.Light("light.fonster", True, True)
