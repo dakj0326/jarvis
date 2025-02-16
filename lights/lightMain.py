@@ -12,13 +12,15 @@ from lights.lightList import *
 from lights.light import *
 
 
-def main(action_list: list):
+def main(crude_list: list):
     """
     Preforms actions on Light(s).
     
     Parameters:
     action_list : list of Action type objects to preform an action with lights
     """
+    action_list = decrypt(crude_list)
+    
     payload = {}
     for action in action_list:
         payload["entity_id"] = action.get_light().get_id()
@@ -52,8 +54,11 @@ def main(action_list: list):
         payload.clear()
 
 
-def decrypt(crude_list: list):
+def decrypt(crude_dict: list):
     light = None
+    
+    crude_list = crude_dict["actions"]
+    
     if crude_list[0].lower() == "fonster":
         light = window
     elif crude_list[0].lower() == "hall":
