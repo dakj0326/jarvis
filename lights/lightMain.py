@@ -30,9 +30,9 @@ def main(crude_list: list):
             #Type of light source
             if "light" in action.get_light().get_id():
                 url = f"{URL}/api/services/light/turn_on"
-                if action.get_light().get_color_comp():
+                if action.get_light().get_color_comp() and action.get_color() != None:
                     payload["rgb_color"] = action.get_color()
-                if action.get_light().get_bright_comp():
+                if action.get_light().get_bright_comp() and action.get_brightness() != None:
                     payload["brightness"] = action.get_brightness()
             elif "switch" in action.get_light().get_id():
                 url = f"{URL}/api/services/switch/turn_on"
