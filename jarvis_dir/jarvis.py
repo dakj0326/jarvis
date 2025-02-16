@@ -48,7 +48,8 @@ class Jarvis:
                     "id for ceiling lamp: 'taklampa'"
                     "id for doughnut lamp: munken"
                     "if for everyone: 'all'"
-                    "List format: [id, state ('on'/'off), Tuple (R, G, B), brighness (0-100)]"},
+                    "rgb is of the python type Tuple '(R, G, B)"
+                    "List format: [id, state ('on'/'off), rgb, brighness (0-100)]"},
                 {"role": "user", "content": _input}
             ],
             response_format={"type": "json_object"},
