@@ -40,6 +40,7 @@ class Jarvis:
                     "id for hallway: 'korridor'"
                     "id for bedroom: 'sovrum'"
                     "id for ceiling lamp: 'taklampa'"
+                    "id for doughnut lamp: munken"
                     "if for everyone: 'all'"
                     "List format: [id, state ('on'/'off), (R, G, B), brighness (0-100)]"},
                 {"role": "user", "content": _input}
@@ -55,17 +56,17 @@ class Jarvis:
                 {"role": "system", "content": 
                     "You will only answer in a structured list called 'actions' changing the state of speakers"
                     "if an element is not specified, leave as None. if no speaker is defined, choose id for everyone"
-                    "id for tv speakers: 'tv_rum'"
+                    "id for tv speakers and livingroom speakers: 'tv_rum'"
                     "id for bedroom: 'sovrum'"
                     "id for bathroom: 'sonos_roam'"
                     "id for everyone: 'all'"
-                    "action for turning on or off: 'toggle'"
+                    "action for play or pause: 'toggle'"
                     "action for volume: 'volume'"
                     "action for shuffle: 'shuffle'"
                     "if no specific wanted volume float is asked:  bool volume_dynamic = True else False"
                     "bool dir = True when wanting to increase volume else False"
                     "if no specific volume float is asked: 'a little' -> volume = 0.1, alot -> volume = 0.25"
-                    "List format: [id, action, toggle state ('on'/'off'), shuffle state ('on'/'off'), volume_dynamic, dir, ]"},
+                    "List format: [id, action, toggle state ('play'/'pause'), shuffle state ('on'/'off'), volume_dynamic, dir, volume]"},
                 {"role": "user", "content": _input}
             ],
             response_format="json",

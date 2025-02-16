@@ -9,6 +9,7 @@ if parent_dir not in sys.path:
     
 from utils import *
 from lightList import *
+from light import *
 
 
 def main(action_list: list):
@@ -51,14 +52,32 @@ def main(action_list: list):
         payload.clear()
 
 
-
+def decrypt(crude_list: list):
+    light = None
+    if crude_list[0].lower() == "fonster":
+        light = window
+    elif crude_list[0].lower() == "hall":
+        light = entry
+    elif crude_list[0].lower() == "korridor":
+        light = hallway
+    elif crude_list[0].lower() == "sovrum":
+        light = bedroom
+    elif crude_list[0].lower() == "taklampa":
+        light = livingroom
+    elif crude_list[0].lower() == "munken":
+        light = munken
+        
+    if light != None:
+        return [LightAction(light, crude_list[1], crude_list[2], crude_list[3])] 
+    
+    return []
 
 
 
 light1 = entry
 action1 = l.LightAction(light1, "on", (255, 255, 200), None)
 light2 = munken
-action2 = l.LightAction(light2, "off", None, None)
+action2 = LightAction(light2, "off", None, None)
 
 main([action2])
 

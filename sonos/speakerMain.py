@@ -12,7 +12,11 @@ from speakerList import *
 from speaker import *
 
 
-def main(action_list: list[SpeakerAction]):
+def main(crude_list: list[SpeakerAction]):
+    
+    action_list = dectrypt(crude_list)
+    
+    
     for action in action_list:
         if action.get_action().lower() == "toggle":
             toggle_speaker(action)
@@ -21,6 +25,26 @@ def main(action_list: list[SpeakerAction]):
         elif action.get_action().lower() == "volume":
             volume_speaker(action)
 
+
+def dectrypt(crude_list: list):
+    speaker = None
+    if crude_list[0].lower() == "sovrum":
+        speaker = bedroom
+    elif crude_list[0].lower() == "tv_rum":
+        speaker = livingroom
+    elif crude_list[0].lower() == "sonos_roam":
+        speaker = bathroom
+    
+    if crude_list[1].lower() == "toggle":
+        return [SpeakerToggle(speaker, crude_list[2])]
+    elif crude_list[1].lower() == "shuffle":
+        return [SpeakerShuffle(speaker, crude_list[3])]
+    elif crude_list[1].lower() == "volume":
+        return [SpeakerVolume(speaker, crude_list[4], crude_list[5], crude_list[6])]
+    
+    return []
+
+# "List format: [id, action, toggle state ('on'/'off'), shuffle state ('on'/'off'), volume_dynamic, dir, volume]"
 
 def toggle_speaker(action: SpeakerToggle):
     """Toggles a speaker to play or pause"""
