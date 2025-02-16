@@ -73,7 +73,6 @@ def decrypt(crude_dict: list):
         _light = munken
         
     if _light != None:
-        print("hello ", _light.get_id())
         return [LightAction(_light, crude_list[1], crude_list[2], crude_list[3])] 
     
     return []
