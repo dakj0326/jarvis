@@ -31,7 +31,7 @@ while True:
         elif action.lower() == "speaker":
             speaker_response = jarvis.speaker_response(_input)
     
-    print("\n\n", speaker_response, "\n", light_response)
+    print("\n\n", speaker_response, "\n", light_response["actions"][0])
     
     if len(light_response) != 0:
         lightMain.main(light_response)
