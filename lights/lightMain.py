@@ -72,7 +72,8 @@ def decrypt(crude_dict: list):
     elif crude_list[0].lower() == "munken":
         _light = munken
         
-    print("\n\n", crude_list[2], "\n\n")
+    print("\n\n", type(crude_list[2]), "\n\n")
+
     
     if _light != None:
         return [LightAction(_light, crude_list[1], crude_list[2], crude_list[3])] 
