@@ -6,11 +6,12 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
-from utils import *
-from configHelper import getLights, getDictValues, mergeDicts, getValue
+from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAheaders
 
 #crude_list = [] # Test
 #crude_list = ['fonster', 1, [100, 100, 100], 100]
+print(getHAheaders())
+print(headers)
 
 def main(crude_list: list):
     lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
@@ -34,8 +35,8 @@ def main(crude_list: list):
             #print(payload)
             #print(url)
 
-            # Gammala koden för post
-            response = requests.post(url, headers=headers, data=json.dumps(payload))
+            # Gammala koden för post men headers hämtas från config.ini
+            response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
 
             if response.status_code == 200:
                 print("Successfully executed: ", crude_list)

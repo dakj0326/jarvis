@@ -54,5 +54,12 @@ def mergeDicts(list: list):
                 out.update(d)
         return out
 
+def getHAheaders():
+        '''Returns headers for HA POSTs'''
+        conf = getConf()
+        headers = dict(conf['ha_headers'])
+        headers['authorization'] += " " + getValue('home_assistant_settings', 'token')
+        return headers
+
 
                        
