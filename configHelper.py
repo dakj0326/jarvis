@@ -2,10 +2,10 @@ import configparser
 # Diskombobulatorn
 def getConf():
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read('../config.ini')
     return config
 
-def getLights():
+def getLights():        # Utdata är en lista av dicts
         lights = []
         data = []
         conf = getConf()
@@ -18,7 +18,7 @@ def getLights():
                         data = []        
         return lights
 
-def getSpeakers():
+def getSpeakers():      # Utdata är en lista av dicts
         speakers = []
         data = []
         conf = getConf()
@@ -30,5 +30,25 @@ def getSpeakers():
                         speakers.append(data)
                         data = []        
         return speakers
+
+def getValue(secName: str, value: str):       # Return specific value
+        conf = getConf()
+        return conf[secName].get(value)
+
+
+
+def getDictValues(keys: list):  # Get the values from a dict
+        values: list = []
+        for key in keys:
+                key = list(key.values())[0]
+                values.append(key)
+        return values
+
+def mergeDicts(list: list): # Convert a list of dicts into one dict
+        out = {}
+        for d in list:
+                out.update(d)
+        return out
+
 
                        
