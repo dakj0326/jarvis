@@ -1,17 +1,14 @@
 
 import sys
 import os
+import requests
+import json
 # Includes path to parent directiry
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAheaders
-
-#crude_list = [] # Test
-#crude_list = ['fonster', 1, [100, 100, 100], 100]
-print(getHAheaders())
-print(headers)
 
 def main(crude_list: list):
     lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
