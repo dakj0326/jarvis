@@ -1,16 +1,18 @@
 import configparser
-# Diskombobulatorn
+'''Diskombobulatorn. Den diskombobulerar.'''
+
 def getConf():
     config = configparser.ConfigParser()
     config.read('../config.ini')
     return config
 
-def getLights():        # Utdata är en lista av dicts
+def getLights():
+        '''Returns all light settings as a list of dicts'''
         lights = []
         data = []
         conf = getConf()
         for sec in conf.sections():
-                if sec.startswith("light"):
+                if sec.startswith('light'):
                         for atr in conf[sec]:
                                 item:dict = {atr: conf[sec][atr]}
                                 data.append(item)
@@ -18,12 +20,13 @@ def getLights():        # Utdata är en lista av dicts
                         data = []        
         return lights
 
-def getSpeakers():      # Utdata är en lista av dicts
+def getSpeakers():
+        '''Returns all speaker settings as a list of dicts'''
         speakers = []
         data = []
         conf = getConf()
         for sec in conf.sections():
-                if sec.startswith("speaker"):
+                if sec.startswith('speaker'):
                         for atr in conf[sec]:
                                 item:dict = {atr: conf[sec][atr]}
                                 data.append(item)
@@ -31,20 +34,21 @@ def getSpeakers():      # Utdata är en lista av dicts
                         data = []        
         return speakers
 
-def getValue(secName: str, value: str):       # Return specific value
+def getValue(secName: str, value: str):       
+        '''Return specific value from config'''
         conf = getConf()
         return conf[secName].get(value)
 
 
 
-def getDictValues(keys: list):  # Get the values from a dict
+def getDictValues(keys: list):
         values: list = []
         for key in keys:
                 key = list(key.values())[0]
                 values.append(key)
         return values
 
-def mergeDicts(list: list): # Convert a list of dicts into one dict
+def mergeDicts(list: list):
         out = {}
         for d in list:
                 out.update(d)
