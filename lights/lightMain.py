@@ -12,7 +12,7 @@ from configHelper import getLights, getDictValues, mergeDicts, getValue
 def main(crude_list: list):
     lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
     lconf= {}  # Lampans inställningar
-    for light, i in zip(lights, range(len(lights))): #
+    for light in lights: #
         values = getDictValues(light)
         if crude_list[0] in values:
             lconf = mergeDicts(light)
