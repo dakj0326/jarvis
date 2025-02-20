@@ -34,7 +34,7 @@ def getSpeakers():
                         data = []        
         return speakers
 
-def getValue(secName: str, value: str):       
+def getValue(secName: str, value: str):
         '''Return specific value from config'''
         conf = getConf()
         return conf[secName].get(value)

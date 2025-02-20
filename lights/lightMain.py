@@ -10,11 +10,11 @@ if parent_dir not in sys.path:
 
 from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAheaders
 
-def main(input: list):
+def main(_input: list):
 
     #[id, state ('on'/'off), Tuple (R, G, B), brighness (0-100)]
     #[alias, true/false, [0,0,0], int]
-    crude_list = input['actions'][0]
+    crude_list = dereference_input(_input)
     lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
     lconf= {}  # Lampans inställningar
     for light in lights: #
@@ -27,7 +27,7 @@ def main(input: list):
             url = getValue('home_assistant_settings', 'url')
             payload['entity_id'] = lconf['ha_id']
             if crude_list[1].lower() == "on": # If state on
-                if lconf['color']: payload['rgb_color'] = tuple(crude_list[2]) # Set color if configured
+                if lconf['color'] : payload['rgb_color'] = tuple(crude_list[2]) # Set color if configured
                 if lconf['brightness']: payload['brightness'] = crude_list[3] # Set brightness if configured
                 url += lconf['uri_on'] # Append uri
             else: # If state off
@@ -46,3 +46,15 @@ def main(input: list):
                 print("Response:", response.text)
             payload.clear()
             break
+
+
+def dereference_input(_input: list):
+    if _input["actions"][0][0].lower() != "all":
+        return _input["actions"]
+    
+    output = []
+    lights = getLights()
+    for light in lights:
+        output.append([light["ha_id"], _input[1], _input[2], _input[3]])
+        
+    return output
