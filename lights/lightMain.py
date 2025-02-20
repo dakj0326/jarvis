@@ -62,6 +62,6 @@ def dereference_input(_input: list):
     output = []
     lights = getLights()
     for light in lights:
-        output.append([light["ha_id"], _input[1], _input[2], _input[3]])
+        output.append([light[1]["ha_id"], _input[1], _input[2], _input[3]])
         
     return output
