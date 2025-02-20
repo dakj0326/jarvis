@@ -40,20 +40,17 @@ def main(_input: list):
                 print(payload)
                 print(url)
                 
+                # Gammala koden för post men headers hämtas från config.ini
+                response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
+
+                if response.status_code == 200:
+                    print("Successfully executed: ", action)
+                else:
+                    print("Failed to execute:", action, " :: ", {response.status_code})
+                    print("Response:", response.text)
+                payload.clear()
+                break
                 
-
-            # Gammala koden för post men headers hämtas från config.ini
-            response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
-
-            if response.status_code == 200:
-                print("Successfully executed: ", action)
-            else:
-                print("Failed to execute:", action, " :: ", {response.status_code})
-                print("Response:", response.text)
-            payload.clear()
-            continue
-            
-
 
 def dereference_input(_input: list):
     if _input["actions"][0][0].lower() != "all":
