@@ -49,7 +49,6 @@ def main(_input: list):
                 print("Failed to execute:", action, " :: ", {response.status_code})
                 print("Response:", response.text)
             payload.clear()
-            break
 
 
 def dereference_input(_input: list):
