@@ -6,3 +6,9 @@ Implementera LLM inställningar från config.ini så att användaren kan välja/
 Automatiskt generera prompt åt ai från config.ini inställningar /S
 
 Aktivera jarvis konversationsminne /K
+
+Skapa funtioner så att jarvis kan ändra i config.ini /K
+
+Skapa protokoll för fördiga ljus och musik inställningar. /K
+ 
+Ge jarvis förmågan att skapa fler protokoll. /K
