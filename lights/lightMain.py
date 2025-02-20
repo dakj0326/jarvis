@@ -19,7 +19,6 @@ def main(input: list):
     lconf= {}  # Lampans inställningar
     for light in lights: #
         values = getDictValues(light)
-        print(crude_list, values)
         if crude_list[0] in values:
             lconf = mergeDicts(light)
 
@@ -27,7 +26,7 @@ def main(input: list):
             payload = {}
             url = getValue('home_assistant_settings', 'url')
             payload['entity_id'] = lconf['ha_id']
-            if crude_list[1]: # If state on
+            if crude_list[1].lower() == "on": # If state on
                 if lconf['color']: payload['rbg_color'] = tuple(crude_list[2]) # Set color if configured
                 if lconf['brightness']: payload['brightness'] = crude_list[3] # Set brightness if configured
                 url += lconf['uri_on'] # Append uri
