@@ -13,7 +13,7 @@ from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAhe
 
 def main(_input: list):
     
-    actions = dereference_input(_input)
+    actions = dereference_input(_input) #[['sovrum', 'off', None, None],['sovrum', 'off', None, None],['sovrum', 'off', None, None]]
     
     for action in actions:    
         lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
@@ -38,16 +38,15 @@ def main(_input: list):
                 print(payload)
                 print(url)
 
-            # Gammala koden för post men headers hämtas från config.ini
-            response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
+                # Gammala koden för post men headers hämtas från config.ini
+                response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
 
-            if response.status_code == 200:
-                print("Successfully executed: ", action)
-            else:
-                print("Failed to execute:", action, " :: ", {response.status_code})
-                print("Response:", response.text)
-            payload.clear()
-            break
+                if response.status_code == 200:
+                    print("Successfully executed: ", action)
+                else:
+                    print("Failed to execute:", action, " :: ", {response.status_code})
+                    print("Response:", response.text)
+                payload.clear()
 
 
 def dereference_input(_input: list):
