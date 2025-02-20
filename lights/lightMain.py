@@ -13,7 +13,9 @@ from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAhe
 
 def main(_input: list):
     
-    actions = dereference_input(_input) #[['sovrum', 'off', None, None],['sovrum', 'off', None, None],['sovrum', 'off', None, None]]
+    actions = dereference_input(_input)
+    
+    print("\n\n", actions, "\n\n")
     
     for action in actions:    
         lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
