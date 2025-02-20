@@ -39,6 +39,8 @@ def main(_input: list):
 
                 print(payload)
                 print(url)
+                
+                
 
             # Gammala koden för post men headers hämtas från config.ini
             response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
@@ -49,6 +51,8 @@ def main(_input: list):
                 print("Failed to execute:", action, " :: ", {response.status_code})
                 print("Response:", response.text)
             payload.clear()
+            continue
+            
 
 
 def dereference_input(_input: list):
