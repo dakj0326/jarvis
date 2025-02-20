@@ -9,7 +9,6 @@ class Jarvis:
         self.conversation_history = []
         
     def fast_response(self, _input: str):
-        self.conversation_history.append({"role": "user", "content": _input})
         
         response = self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
@@ -19,14 +18,13 @@ class Jarvis:
                     "Always respond in valid JSON format with two keys: 'message' and 'needs_commands'."
                     "Give short and direct answers, often calling the user sir, always in english."
                     "You can control speakers and lights to the appartment."
-                    "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"},
-                {"role": "user", "content": _input}
+                    "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"}
             ] + self.conversation_history,
             response_format={"type": "json_object"}
         )
         
         self.conversation_history.append({"role": "user", "content": _input})
-        #self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
+        self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
         
         response_dict = response.choices[0].message.content  # Extract the response content
         chat_response = json.loads(response_dict)
