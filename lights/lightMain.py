@@ -10,6 +10,7 @@ if parent_dir not in sys.path:
 
 from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAheaders
 
+debug = False #Used when payload results is wanted
 
 def main(_input: list):
     
@@ -43,12 +44,13 @@ def main(_input: list):
                 # Gammala koden för post men headers hämtas från config.ini
                 response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
 
-                if response.status_code == 200:
-                    print("Successfully executed: ", action)
-                else:
-                    print("Failed to execute:", action, " :: ", {response.status_code})
-                    print("Response:", response.text)
-                payload.clear()
+                if debug:
+                    if response.status_code == 200:
+                        print("Successfully executed: ", action)
+                    else:
+                        print("Failed to execute:", action, " :: ", {response.status_code})
+                        print("Response:", response.text)
+                    payload.clear()
 
 
 def dereference_input(_input: list):
