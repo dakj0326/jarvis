@@ -16,8 +16,6 @@ def main(_input: list):
     
     actions = dereference_input(_input)
     
-    print("\n\n", actions, "\n\n")
-    
     for action in actions:    
         lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
         lconf= {}  # Lampans inställningar
@@ -38,13 +36,15 @@ def main(_input: list):
                 else: # If state off
                     url += lconf['uri_off']
 
-                print(payload)
-                print(url)
+
 
                 # Gammala koden för post men headers hämtas från config.ini
                 response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
 
                 if debug:
+                    print(payload)
+                    print(url)
+                    
                     if response.status_code == 200:
                         print("Successfully executed: ", action)
                     else:
