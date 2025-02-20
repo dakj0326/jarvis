@@ -14,7 +14,7 @@ def main(input: list):
 
     #[id, state ('on'/'off), Tuple (R, G, B), brighness (0-100)]
     #[alias, true/false, [0,0,0], int]
-    crude_list = input['actions']
+    crude_list = input['actions'][0]
     lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
     lconf= {}  # Lampans inställningar
     for light in lights: #
