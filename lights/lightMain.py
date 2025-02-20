@@ -27,7 +27,7 @@ def main(input: list):
             url = getValue('home_assistant_settings', 'url')
             payload['entity_id'] = lconf['ha_id']
             if crude_list[1].lower() == "on": # If state on
-                if lconf['color']: payload['rbg_color'] = tuple(crude_list[2]) # Set color if configured
+                if lconf['color']: payload['rgb_color'] = tuple(crude_list[2]) # Set color if configured
                 if lconf['brightness']: payload['brightness'] = crude_list[3] # Set brightness if configured
                 url += lconf['uri_on'] # Append uri
             else: # If state off
