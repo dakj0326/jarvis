@@ -26,7 +26,7 @@ class Jarvis:
         )
         
         self.conversation_history.append({"role": "user", "content": _input})
-        self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
+        #self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
         
         response_dict = response.choices[0].message.content  # Extract the response content
         chat_response = json.loads(response_dict)
