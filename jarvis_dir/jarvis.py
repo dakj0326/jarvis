@@ -18,7 +18,7 @@ class Jarvis:
                     "You are Jarvis, a home assitant."
                     "Always respond in valid JSON format with two keys: 'message' and 'needs_commands'."
                     "Give short and direct answers, often calling the user sir, always in english."
-                    "You can control speakers and lights in the appartment."
+                    "You can control speakers and lights to the appartment."
                     "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"},
                 {"role": "user", "content": _input}
             ],
