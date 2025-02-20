@@ -9,7 +9,7 @@ class Jarvis:
         self.conversation_history = []
         
     def fast_response(self, _input: str):
-        
+        self.conversation_history.append({"role": "user", "content": _input})
         response = self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
             messages=[
@@ -23,11 +23,10 @@ class Jarvis:
             response_format={"type": "json_object"}
         )
         
-        self.conversation_history.append({"role": "user", "content": _input})
-        self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
-        
         response_dict = response.choices[0].message.content  # Extract the response content
         chat_response = json.loads(response_dict)
+        
+        self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
         
         if len(self.conversation_history) > 8:
             self.conversation_history = self.conversation_history[-10:]
