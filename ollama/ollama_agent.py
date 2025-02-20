@@ -20,6 +20,7 @@ class OllamaAgent:
             model = self.model,
             messages = message)
         
+        self.history.append(response['role': 'you', 'content': response['message']['content']])
         return response
     
     
