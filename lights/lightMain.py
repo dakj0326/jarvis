@@ -41,3 +41,4 @@ def main(crude_list: list):
                 print("Failed to execute:", crude_list, " :: ", {response.status_code})
                 print("Response:", response.text)
             payload.clear()
+            break
