@@ -7,9 +7,11 @@ class Jarvis:
     def __init__(self):
         self.jarvis =  openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         self.conversation_history = []
+        self.conversation_context = []
         
     def fast_response(self, _input: str):
         self.conversation_history.append({"role": "user", "content": _input})
+        self.conversation_context.append({"role": "user", "content": _input})
         response = self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
             messages=[
@@ -18,7 +20,8 @@ class Jarvis:
                     "Always respond in valid JSON format with two keys: 'message' and 'needs_commands'."
                     "Give short and direct answers, often calling the user sir, always in english."
                     "You can control speakers and lights to the appartment."
-                    "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"}
+                    "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"
+                    "Only ever return 'light' and/or 'speaker' if "}
             ] + self.conversation_history,
             response_format={"type": "json_object"}
         )
@@ -27,9 +30,12 @@ class Jarvis:
         chat_response = json.loads(response_dict)
         
         self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
+        self.conversation_context.append({"role": "assistant", "content": chat_response["message"]})
         
-        if len(self.conversation_history) > 8:
-            self.conversation_history = self.conversation_history[-10:]
+        if len(self.conversation_history) > 12:
+            self.conversation_history = self.conversation_history[-12:]
+        if len(self.conversation_context) > 8:
+            self.conversation_context = self.conversation_context[-8:]
             
         return chat_response
     
@@ -48,9 +54,8 @@ class Jarvis:
                     "id for ceiling lamp: 'taklampa'"
                     "id for doughnut lamp: munken"
                     "if for everyone: 'all'"
-                    "List format: [id, state ('on'/'off), Tuple (R, G, B), brighness (0-255)]"},
-                {"role": "user", "content": _input}
-            ],
+                    "List format: [id, state ('on'/'off), Tuple (R, G, B), brighness (0-255)]"}
+            ] + self.conversation_context,
             response_format={"type": "json_object"},
             max_tokens=100
         )
@@ -79,8 +84,7 @@ class Jarvis:
                     "bool dir = True when wanting to increase volume else False"
                     "if no specific volume float is asked: 'a little' -> volume = 0.1, alot -> volume = 0.25"
                     "List format: [id, action, toggle state ('play'/'pause'), shuffle state ('on'/'off'), volume_dynamic, dir, volume]"},
-                {"role": "user", "content": _input}
-            ],
+            ] + self.conversation_context,
             response_format={"type": "json_object"},
             max_tokens=100
         )
