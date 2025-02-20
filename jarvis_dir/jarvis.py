@@ -21,14 +21,17 @@ class Jarvis:
                     "You can control speakers and lights to the appartment."
                     "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"},
                 {"role": "user", "content": _input}
-            ],
+            ] + self.conversation_history,
             response_format={"type": "json_object"}
         )
+        
+        self.conversation_history.append({"role": "user", "content": _input})
+        self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
         
         response_dict = response.choices[0].message.content  # Extract the response content
         chat_response = json.loads(response_dict)
         
-        if len(self.conversation_history) > 20:
+        if len(self.conversation_history) > 8:
             self.conversation_history = self.conversation_history[-10:]
             
         return chat_response
