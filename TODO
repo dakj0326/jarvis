@@ -1,0 +1,7 @@
+Testa om lightMain koden fungerar på kjellbergs maskin /S
+
+Skriva om /sonos så att den anvädner sig av config.ini /S
+Implementera LLM inställningar från config.ini så att användaren kan välja/konfigurera vilken ai den vill använda /S
+
+Automatiskt generera prompt åt ai från config.ini inställningar /S
+ 
