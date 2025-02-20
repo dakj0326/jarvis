@@ -11,6 +11,10 @@ if parent_dir not in sys.path:
 from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAheaders
 
 def main(crude_list: list):
+
+    #[id, state ('on'/'off), Tuple (R, G, B), brighness (0-100)]
+    #[alias, true/false, [0,0,0], int]
+
     lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
     lconf= {}  # Lampans inställningar
     for light in lights: #
@@ -21,7 +25,7 @@ def main(crude_list: list):
             # POST till HA
             payload = {}
             url = getValue('home_assistant_settings', 'url')
-            payload['entity_id'] = lconf['alias']
+            payload['entity_id'] = lconf['ha_id']
             if crude_list[1]: # If state on
                 if lconf['color']: payload['rbg_color'] = tuple(crude_list[2]) # Set color if configured
                 if lconf['brightness']: payload['brightness'] = crude_list[3] # Set brightness if configured
