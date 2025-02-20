@@ -19,6 +19,7 @@ def main(crude_list: list):
     lconf= {}  # Lampans inställningar
     for light in lights: #
         values = getDictValues(light)
+        print(crude_list, values)
         if crude_list[0] in values:
             lconf = mergeDicts(light)
 
