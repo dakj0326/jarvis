@@ -33,8 +33,8 @@ def main(input: list):
             else: # If state off
                 url += lconf['uri_off']
 
-            #print(payload)
-            #print(url)
+            print(payload)
+            print(url)
 
             # Gammala koden för post men headers hämtas från config.ini
             response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
