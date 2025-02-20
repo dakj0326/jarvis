@@ -38,11 +38,6 @@ def main(_input: list):
                 print(payload)
                 print(url)
 
-
-                # Gammala koden för post men headers hämtas från config.ini
-                response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
-
-
             # Gammala koden för post men headers hämtas från config.ini
             response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
 
