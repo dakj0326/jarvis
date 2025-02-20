@@ -48,7 +48,7 @@ class Jarvis:
                     "id for ceiling lamp: 'taklampa'"
                     "id for doughnut lamp: munken"
                     "if for everyone: 'all'"
-                    "List format: [id, state ('on'/'off), Tuple (R, G, B), brighness (0-100)]"},
+                    "List format: [id, state ('on'/'off), Tuple (R, G, B), brighness (0-255)]"},
                 {"role": "user", "content": _input}
             ],
             response_format={"type": "json_object"},
