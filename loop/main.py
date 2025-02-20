@@ -15,22 +15,22 @@ jarvis = j.Jarvis()
 
 while True:
     _input = input("You: ")
-    
+
     if _input.lower() == "exit":
         break
     
-    chat_response = jarvis.fast_response(_input)
+    chat_response = jarvis.fast_response(_input) 
     print("Jarvis: ", chat_response["message"])
-    
+
     light_response = []
     speaker_response = []
     
     if chat_response["needs_commands"] != None:
         for action in chat_response["needs_commands"]:
             if action.lower() == "light":
-                light_response = jarvis.lights_response(_input)
+                light_response = jarvis.lights_response(_input)    
             elif action.lower() == "speaker":
-                speaker_response = jarvis.speaker_response(_input)
+                speaker_response = jarvis.speaker_response(_input)  
     
     if len(light_response) != 0:
         lightMain.main(light_response)
