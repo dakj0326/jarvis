@@ -93,14 +93,12 @@ def validate_list(_input: dict):
                              "color": False, 
                              "brightness": False})
             # Checks ha_id
-            print(len(lights))
-            
             for light in lights:
                 lconf = mergeDicts(light)
                 print()
                 print((actions[i][0]), type((actions[i][0])), type((str)(actions[i][0])))
                 if (str)(actions[i][0]) == lconf["alias"] or actions[i][0] == "all":
-                    checklists[i]["id"] == True
+                    checklists[i]["id"] = True
                     break
             
             # Checks state
