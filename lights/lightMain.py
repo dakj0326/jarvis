@@ -96,7 +96,7 @@ def validate_list(_input: dict):
             for light in lights:
                 print(light[0]["alias"], actions[i][0])
                 print(type(light[0]["alias"]))
-                print("\n\n\n\n\n")
+                print("\n", len(light[0]["alias"]), "\n\n\n\n")
                 alias:str = (str)(light[0]["alias"].lower())
                 if actions[i][0].lower() == alias or actions[i][0].lower() == "all":
                     checklists[i]["id"] == True
