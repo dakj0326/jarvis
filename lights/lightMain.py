@@ -97,10 +97,7 @@ def validate_list(_input: dict):
             
             for light in lights:
                 lconf = mergeDicts(light)
-                print(actions[i][0] == "sovrum")
-                print("sovrum" == lconf["alias"])
-                print("\n", len(light[0]["alias"]), "\n\n\n\n")
-                if (str)(actions[i][0]) == lconf["alias"] or actions[i][0].lower() == "all":
+                if (str)(actions[i][0]) == lconf["alias"] or actions[i][0] == "all":
                     checklists[i]["id"] == True
                     break
             
@@ -127,13 +124,14 @@ def validate_list(_input: dict):
             if actions[i][3] == None:
                 checklists[i]["brightness"] = True
         
+        print (checklists)
+        
         for checklist in checklists:
             for key, value in checklist.items():
                 if not value:
-                    print (checklists)
                     return False
         
         return True
     return False
 
-validate_list({"actions": [["sovrum", "on", None, 254]]})
+validate_list({"actions": [["sovrum", "on", None, 254], ["all", "on", None, 254]]})
