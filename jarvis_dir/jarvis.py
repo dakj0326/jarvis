@@ -43,7 +43,8 @@ class Jarvis:
         response= self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
             messages=[
-                {"role": "system", "content": 
+                {"role": "system", "content":
+                    "In the case of a question from 'jarvis: ', do not act unless the 'user: ' answers yes in some way" 
                     "You will only answer in a structured list (not a dictionary) called 'actions' changing the state of lights"
                     "Always respond in valid JSON format"
                     "if asked for 'normal light' turn brightness to 255 and color to (255, 160, 60)"
