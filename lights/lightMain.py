@@ -110,7 +110,7 @@ def validate_list(_input: dict):
                     checklists[i]["brighness"] = True
         
         for checklist in checklists:
-            for key, value in checklist:
+            for key, value in checklist.items():
                 if not value:
                     return False
         
