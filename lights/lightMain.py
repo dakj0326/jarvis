@@ -17,14 +17,12 @@ def main(_input: dict):
     actions = dereference_input(_input)
     
     print(actions)
-    
-    for action in actions:    
-        lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
-        lconf= {}  # Lampans inställningar
-        
-        for light in lights: #
-            values = getDictValues(light)
-            if action[0] in values:
+    if actions != None:
+        for action in actions:    
+            lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
+            lconf= {}  # Lampans inställningar
+            
+            for light in lights: #
                 lconf = mergeDicts(light)
 
                 # POST till HA
