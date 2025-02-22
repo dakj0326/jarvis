@@ -56,6 +56,8 @@ def main(_input: dict):
 def dereference_input(_input: dict):
     """Returns a list of lists with every action"""
     
+    print(_input)
+    
     if validate_list(_input):
         if _input["actions"][0][0].lower() != "all":
             return _input["actions"]
