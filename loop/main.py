@@ -28,9 +28,9 @@ while True:
     if chat_response["needs_commands"] != None:
         for action in chat_response["needs_commands"]:
             if action.lower() == "light":
-                light_response = jarvis.lights_response(_input)    
+                light_response = jarvis.lights_response()    
             elif action.lower() == "speaker":
-                speaker_response = jarvis.speaker_response(_input)  
+                speaker_response = jarvis.speaker_response()  
     
     if len(light_response) != 0:
         lightMain.main(light_response)

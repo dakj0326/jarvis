@@ -39,7 +39,7 @@ class Jarvis:
             
         return chat_response
     
-    def lights_response(self, _input: str):
+    def lights_response(self):
         response= self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
             messages=[
@@ -66,7 +66,7 @@ class Jarvis:
         
         return chat_response
         
-    def speaker_response(self, _input: str):
+    def speaker_response(self):
         response= self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
             messages=[
