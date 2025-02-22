@@ -76,6 +76,7 @@ def dereference_input(_input: dict):
               "    Instance location: dereference_input(_input: dict)\n",
               "    Input: _input = ", _input)
 
+
 def validate_list(_input: dict):
     """Returns True if the structure of input is correct"""
     if "actions" in _input:
@@ -95,7 +96,7 @@ def validate_list(_input: dict):
             print(len(lights))
             
             for light in lights:
-                lconf = mergeDicts(lights)
+                lconf = mergeDicts(light)
                 print(light[0]["alias"], actions[i][0])
                 print("sovrum" == lconf["alias"])
                 print("\n", len(light[0]["alias"]), "\n\n\n\n")
