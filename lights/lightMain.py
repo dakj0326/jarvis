@@ -96,7 +96,7 @@ def validate_list(_input: dict):
                 print(light[0]["alias"], actions[i][0])
                 print(type(light[0]["alias"]))
                 print("\n\n\n\n\n")
-                if actions[i][0].lower() == light[0]["alias"].lower() or actions[i][0].lower() == "all":
+                if actions[i][0].lower() == (str)(light[0]["alias"].lower()) or (str)(actions[i][0].lower()) == "all":
                     checklists[i]["id"] == True
                     break
             
