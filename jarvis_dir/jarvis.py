@@ -11,7 +11,7 @@ class Jarvis:
         
     def fast_response(self, _input: str):
         self.conversation_history.append({"role": "user", "content": _input})
-        self.conversation_context.append({"role": "user", "content": _input})
+        self.conversation_context.append({"role": "user", "content": "user: " + _input})
         response = self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
             messages=[
@@ -30,7 +30,7 @@ class Jarvis:
         chat_response = json.loads(response_dict)
         
         self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
-        self.conversation_context.append({"role": "assistant", "content": chat_response["message"]})
+        self.conversation_context.append({"role": "assistant", "content": "jarvis: " + chat_response["message"]})
         
         if len(self.conversation_history) > 12:
             self.conversation_history = self.conversation_history[-12:]
