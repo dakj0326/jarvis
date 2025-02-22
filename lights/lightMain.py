@@ -97,7 +97,7 @@ def validate_list(_input: dict):
             
             for light in lights:
                 lconf = mergeDicts(light)
-                print(light[0]["alias"], actions[i][0])
+                print(actions[i][0] == "sovrum")
                 print("sovrum" == lconf["alias"])
                 print("\n", len(light[0]["alias"]), "\n\n\n\n")
                 if (str)(actions[i][0].lower()) == lconf["alias"] or actions[i][0].lower() == "all":
