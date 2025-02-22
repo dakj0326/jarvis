@@ -91,6 +91,7 @@ def validate_list(_input: dict):
             # Checks ha_id
             for light in lights:
                 if actions[i][0] == light[1]["ha_id"] or actions[i][0] == "all":
+                    print(light[1]["ha_id"], actions[i][0])
                     checklists[i]["id"] == True
                     break
             
@@ -107,11 +108,15 @@ def validate_list(_input: dict):
                 
                 if color_state:
                     checklists[i]["color"] = True
+            if actions[i][2] == None:
+                checklists[i]["color"] = True
             
             # Checks brightness
             if isinstance(actions[i][3], int):
                 if actions[i][3] >= 0 and actions[i][3] <= 255:
-                    checklists[i]["brighness"] = True
+                    checklists[i]["brightness"] = True
+            if actions[i][3] == None:
+                checklists[i]["brightness"] = True
         
         for checklist in checklists:
             for key, value in checklist.items():
