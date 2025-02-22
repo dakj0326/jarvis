@@ -1,14 +1,8 @@
 
-d = {"dick": "hello"}
+d = {"fuck": [1, 2, 3]}
 dd = [1, 2, 3]
 
-if "dick" in d:
-    print("fuck yeah")
-    
-
-    
-
-print("System Error: Invalid input\n",
-              "File: lightMain.py\n",
-              "Instance location: dereference_input(_input: dict)\n",
-              "Input: _input = ", 14,)
+if "dick" in d and isinstance(d["dick"], list):
+    print("yes")
+else:
+    print("HELL YEAH")

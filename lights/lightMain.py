@@ -84,6 +84,9 @@ def validate_list(_input: dict):
         actions = _input["actions"]
         
         for i in range(len(_input["actions"])):
+            if not isinstance(_input["actions"][i], list):
+                return False
+            
             checklists.append({"id": False, 
                              "state": False, 
                              "color": False, 
