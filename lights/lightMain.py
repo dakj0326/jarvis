@@ -93,9 +93,11 @@ def validate_list(_input: dict):
                              "brightness": False})
             # Checks ha_id
             print(len(lights))
+            
             for light in lights:
+                lconf = mergeDicts(lights)
                 print(light[0]["alias"], actions[i][0])
-                print(type(light[0]["alias"]))
+                print("sovrum" == lconf["alias"])
                 print("\n", len(light[0]["alias"]), "\n\n\n\n")
                 alias:str = (str)(light[0]["alias"].lower())
                 if actions[i][0].lower() == alias or actions[i][0].lower() == "all":

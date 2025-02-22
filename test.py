@@ -6,3 +6,5 @@ if "dick" in d and isinstance(d["dick"], list):
     print("yes")
 else:
     print("HELL YEAH")
+    
+print(len("hej"))
