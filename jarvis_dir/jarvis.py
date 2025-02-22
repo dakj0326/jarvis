@@ -22,7 +22,8 @@ class Jarvis:
                     "You can control speakers and lights to the appartment."
                     "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"
                     "Do not return 'light' and/or 'speaker' if you ask if they should be alterd."
-                    "Only return 'light' and/or 'speaker' if you or the user states they should be altered without a question"}
+                    "Only return 'light' and/or 'speaker' if you or the user states they should be altered without a question"
+                    "If the word 'light' or 'speaker' is mentioned in a question, DO NOT return 'light' or 'speaker'"}
             ] + self.conversation_history,
             response_format={"type": "json_object"}
         )
