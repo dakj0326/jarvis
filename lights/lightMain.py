@@ -8,7 +8,7 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
-from configHelper import getLights, getDictValues, mergeDicts, getValue, getHAheaders
+from configHandler import getLights, getDictValues, mergeDicts, getValue, getHAheaders
 
 debug = False #Used when payload results is wanted
 

@@ -1,10 +1,11 @@
 
-d = {"fuck": [1, 2, 3]}
-dd = [1, 2, 3]
 
-if "dick" in d and isinstance(d["dick"], list):
-    print("yes")
-else:
-    print("HELL YEAH")
-    
-print(len("hej"))
+test1 = ["a", "b", "c"]
+
+def test2(test):
+    for el in test:
+        if el == "b":
+            test.remove(el)
+            return el
+
+print(test2(test1))

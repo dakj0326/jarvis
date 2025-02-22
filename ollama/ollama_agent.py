@@ -1,5 +1,5 @@
 from ollama import chat, Client
-from configHelper import getValue
+from configHandler import getValue
 
 class OllamaAgent:
     """Instantiable object of ollama model. 

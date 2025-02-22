@@ -1,5 +1,5 @@
 from ollama_agent import OllamaAgent
-from configHelper import getValue
+from configHandler import getValue
 import systemMsgs
 
 # AI instanser
