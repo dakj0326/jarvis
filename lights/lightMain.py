@@ -16,6 +16,8 @@ def main(_input: dict):
     
     actions = dereference_input(_input)
     
+    print(actions)
+    
     for action in actions:    
         lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa
         lconf= {}  # Lampans inställningar
