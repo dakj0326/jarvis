@@ -47,7 +47,7 @@ class Jarvis:
                     "You will only answer in a structured list called 'actions' changing the state of lights"
                     "Always respond in valid JSON format"
                     "if asked for 'normal light' turn brightness to 255 and color to (255, 160, 60)"
-                    "if an element is not specified, leave as None.  if no light is defined, choose id for everyone"
+                    "if an element is not specified, leave as None.  if no light is defined, choose id for everyone" # TODO element = Nnne blir problem. Program kraschar lös på annat vis.
                     "id for window: 'fonster'"
                     "id for entrance: 'hall'"
                     "id for hallway: 'korridor'"

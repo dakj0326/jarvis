@@ -1,9 +1,12 @@
 from ollama_agent import OllamaAgent
-import PARAMETERS
+from configHelper import getValue
+import systemMsgs
 
 # AI instanser
-agents = [OllamaAgent(PARAMETERS.SYSTEM_MSG, PARAMETERS.MODEL, PARAMETERS.MEMORY),
-          OllamaAgent(PARAMETERS.SYSTEM_MSG, PARAMETERS.MODEL, PARAMETERS.MEMORY)]
+model = getValue('ollama_settings', 'model')
+memory = getValue('ollama_settings', 'memory')
+agents = [OllamaAgent(systemMsgs.SYSTEM_MSG_GENERAL, model, memory),
+          OllamaAgent(systemMsgs.SYSTEM_MSG_GENERAL, model, memory)]
 
 # AI bygga mening med varandra
 def sendMsg(msg: str, agent: OllamaAgent):
