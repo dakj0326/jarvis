@@ -116,6 +116,7 @@ def validate_list(_input: dict):
         for checklist in checklists:
             for key, value in checklist.items():
                 if not value:
+                    print (checklists)
                     return False
         
         return True
