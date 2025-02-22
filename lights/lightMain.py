@@ -92,11 +92,13 @@ def validate_list(_input: dict):
                              "color": False, 
                              "brightness": False})
             # Checks ha_id
+            print(len(lights))
             for light in lights:
                 print(light[0]["alias"], actions[i][0])
                 print(type(light[0]["alias"]))
                 print("\n\n\n\n\n")
-                if actions[i][0].lower() == (str)(light[0]["alias"].lower()) or (str)(actions[i][0].lower()) == "all":
+                alias:str = (str)(light[0]["alias"].lower())
+                if actions[i][0].lower() == alias or actions[i][0].lower() == "all":
                     checklists[i]["id"] == True
                     break
             
@@ -131,3 +133,5 @@ def validate_list(_input: dict):
         
         return True
     return False
+
+validate_list({"actions": [["sovrum", "on", None, 254]]})

@@ -14,8 +14,7 @@ def getLights():
         for sec in conf.sections():             
                 if sec.startswith('light'):
                         for atr in conf[sec]:
-                                stratr = (str)(atr)
-                                item:dict = {atr: conf[sec][stratr]}
+                                item:dict = {atr: conf[sec][atr]}
                                 data.append(item)
                         lights.append(data)
                         data = []        
