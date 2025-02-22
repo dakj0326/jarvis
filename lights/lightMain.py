@@ -95,9 +95,7 @@ def validate_list(_input: dict):
             # Checks ha_id
             for light in lights:
                 lconf = mergeDicts(light)
-                print()
-                print((actions[i][0]), type((actions[i][0])), type((str)(actions[i][0])))
-                if (str)(actions[i][0]) == lconf["alias"] or actions[i][0] == "all":
+                if actions[i][0] == lconf["alias"] or actions[i][0] == "all":
                     checklists[i]["id"] = True
                     break
             
@@ -124,8 +122,6 @@ def validate_list(_input: dict):
             if actions[i][3] == None:
                 checklists[i]["brightness"] = True
         
-        print (checklists)
-        
         for checklist in checklists:
             for key, value in checklist.items():
                 if not value:
@@ -133,5 +129,3 @@ def validate_list(_input: dict):
         
         return True
     return False
-
-validate_list({"actions": [["sovrum", "on", None, 254], ["all", "on", (0, 255, 100), 254]]})
