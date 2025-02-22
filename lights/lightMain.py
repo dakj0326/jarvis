@@ -23,34 +23,36 @@ def main(_input: dict):
             lconf= {}  # Lampans inställningar
             
             for light in lights: #
-                lconf = mergeDicts(light)
+                values = getDictValues(light)
+                if action[0] in values:
+                    lconf = mergeDicts(light)
 
-                # POST till HA
-                payload = {}
-                url = getValue('home_assistant_settings', 'url')
-                payload['entity_id'] = lconf['ha_id']
-                if action[1].lower() == "on": # If state on
-                    if lconf['color'] and action[2] != None: payload['rgb_color'] = tuple(action[2]) # Set color if configured
-                    if lconf['brightness'] and action[2] != None: payload['brightness'] = action[3] # Set brightness if configured
-                    url += lconf['uri_on'] # Append uri
-                else: # If state off
-                    url += lconf['uri_off']
+                    # POST till HA
+                    payload = {}
+                    url = getValue('home_assistant_settings', 'url')
+                    payload['entity_id'] = lconf['ha_id']
+                    if action[1].lower() == "on": # If state on
+                        if lconf['color'] and action[2] != None: payload['rgb_color'] = tuple(action[2]) # Set color if configured
+                        if lconf['brightness'] and action[2] != None: payload['brightness'] = action[3] # Set brightness if configured
+                        url += lconf['uri_on'] # Append uri
+                    else: # If state off
+                        url += lconf['uri_off']
 
 
 
-                # Gammala koden för post men headers hämtas från config.ini
-                response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
+                    # Gammala koden för post men headers hämtas från config.ini
+                    response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
 
-                if debug:
-                    print(payload)
-                    print(url)
-                    
-                    if response.status_code == 200:
-                        print("Successfully executed: ", action)
-                    else:
-                        print("Failed to execute:", action, " :: ", {response.status_code})
-                        print("Response:", response.text)
-                    payload.clear()
+                    if debug:
+                        print(payload)
+                        print(url)
+                        
+                        if response.status_code == 200:
+                            print("Successfully executed: ", action)
+                        else:
+                            print("Failed to execute:", action, " :: ", {response.status_code})
+                            print("Response:", response.text)
+                        payload.clear()
 
 
 def dereference_input(_input: dict):
