@@ -11,7 +11,7 @@ class Jarvis:
         
     def fast_response(self, _input: str):
         self.conversation_history.append({"role": "user", "content": _input})
-        self.conversation_context.append({"role": "user", "content": "user: " + _input})
+        self.conversation_context.append({"role": "user", "content": _input})
         response = self.jarvis.chat.completions.create(
             model = "gpt-4o-mini",
             messages=[
@@ -21,7 +21,8 @@ class Jarvis:
                     "Give short and direct answers, often calling the user sir, always in english."
                     "You can control speakers and lights to the appartment."
                     "Also, return a list of strings 'needs_commands' containing 'light', 'speaker' or None depending on if my lights or speakers should be altered by my input"
-                    "Only ever return 'light' and/or 'speaker' if "}
+                    "Do not return 'light' and/or 'speaker' if you ask if they should be alterd."
+                    "Only return 'light' and/or 'speaker' if you or the user states they should be altered without a question"}
             ] + self.conversation_history,
             response_format={"type": "json_object"}
         )
@@ -30,7 +31,7 @@ class Jarvis:
         chat_response = json.loads(response_dict)
         
         self.conversation_history.append({"role": "assistant", "content": chat_response["message"]})
-        self.conversation_context.append({"role": "assistant", "content": "jarvis: " + chat_response["message"]})
+        self.conversation_context.append({"role": "assistant", "content": chat_response["message"]})
         
         if len(self.conversation_history) > 12:
             self.conversation_history = self.conversation_history[-12:]
@@ -44,7 +45,6 @@ class Jarvis:
             model = "gpt-4o-mini",
             messages=[
                 {"role": "system", "content":
-                    "In the case of a question from 'jarvis: ', do not act unless the 'user: ' answers yes in some way" 
                     "You will only answer in a structured list (not a dictionary) called 'actions' changing the state of lights"
                     "Always respond in valid JSON format"
                     "if asked for 'normal light' turn brightness to 255 and color to (255, 160, 60)"
