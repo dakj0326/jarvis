@@ -7,9 +7,8 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
-from jarvis_dir import jarvis as j
+from ollama import jarvis as j
 from lights import lightMain
-from sonos import speakerMain
 
 jarvis = j.Jarvis()
 
@@ -34,8 +33,10 @@ while True:
     
     if len(light_response) != 0:
         lightMain.main(light_response)
+
         
-    if len(speaker_response) != 0:
-        speakerMain.main(speaker_response)
+#
+#   if len(speaker_response) != 0:
+#       speakerMain.main(speaker_response)
     
     
