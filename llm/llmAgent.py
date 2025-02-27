@@ -41,7 +41,10 @@ class llmAgent:
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
 
             if self.returnJson:
-                return loads(response.choices[0].message.content) # Return message content as JSON
+                try:
+                    return loads(response.choices[0].message.content) # Return message content as JSON
+                except Exception as e:
+                    print('llm response not convertable to JSON, returning str: ', e)
             return response.choices[0].message.content # Return message content as str
         
         if self.remote: # Run if ollama set to remote
@@ -51,7 +54,11 @@ class llmAgent:
 
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
             if self.returnJson:
-                return loads(response['message']['content']) # Return message content as JSON
+                try:
+                    json = loads(response['message']['content']) # Return message content as JSON
+                    return json
+                except Exception as e:
+                    print('llm response not convertable to JSON, returning str: ', e)
             return response['message']['content'] # Return message content as str
         
         else: # Run if ollama set to local
@@ -61,7 +68,11 @@ class llmAgent:
             
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
             if self.returnJson:
-                return loads(response['message']['content']) # Return message content as JSON
+                try:
+                    json = loads(response['message']['content']) # Return message content as JSON
+                    return json
+                except Exception as e:
+                    print('llm response not convertable to JSON, returning str: ', e)
             return response['message']['content'] # Return message content as str
         
     def addHistory(self, msg: dict):    # Add to history while maintaining size
