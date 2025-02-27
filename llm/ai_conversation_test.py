@@ -1,15 +1,15 @@
-from ollama_agent import OllamaAgent
+from llm.llmAgent import llmAgent
 from configHandler import getValue
 import systemMsgs
 
 # AI instanser
 model = getValue('ollama_settings', 'model')
 memory = getValue('ollama_settings', 'memory')
-agents = [OllamaAgent(systemMsgs.SYSTEM_MSG_GENERAL, model, memory),
-          OllamaAgent(systemMsgs.SYSTEM_MSG_GENERAL, model, memory)]
+agents = [llmAgent(systemMsgs.SYSTEM_MSG_GENERAL, model, memory),
+          llmAgent(systemMsgs.SYSTEM_MSG_GENERAL, model, memory)]
 
 # AI bygga mening med varandra
-def sendMsg(msg: str, agent: OllamaAgent):
+def sendMsg(msg: str, agent: llmAgent):
     return agent.query(msg)['message']['content']
 
 Sentence = "I"

@@ -1,10 +1,12 @@
 from ollama import chat, Client
 from configHandler import getValue
+import openai
+import os
 
-class OllamaAgent:
+class llmAgent:
     """Instantiable object of ollama model. 
        History is optional """
-    def __init__(self, systemMsg: dict, model: str, memory: int, history = None):
+    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, history = None):
         if history == None: # Allow for predefined memory
             self.history = []
         else:
@@ -13,24 +15,40 @@ class OllamaAgent:
         self.systemMsg = systemMsg
         self.model = model
         self.remote = getValue('ollama_settings', 'remote')
-        if self.remote: self.client = Client(host=getValue('ollama_settings', 'host')) # Create client if set to run remote
         self.memory = memory
+        self.llm = llm
+
+        if self.llm == openai:  # Create openai client
+            self.client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+        elif self.remote:   # Create ollama client if llm set to ollama & remote
+            self.client = Client(host=getValue('ollama_settings', 'host')) # Create client if set to run remote
+
     
     def query(self, userPrompt: str):
         usrMsg = {'role': 'user', 'content': userPrompt}
         message = [self.systemMsg, usrMsg]
         if len(self.history) != 0: # Append history to msg if it contains any entries
             message.append(self.history)
+        
+        self.addHistory(usrMsg) # Append usrMsg to history
 
-        if self.remote: # Run if set to remote
+        if self.llm == 'openai':    # Run if openai configured
+            response = self.client.chat.completions.create(
+                model = 'self.model',
+                messages = message)
+            
+            self.addHistory(response['role': 'you', 'content': response['message']['content']])
+            return response
+        
+        if self.remote: # Run if ollama set to remote
             response = self.client.chat(
             model = self.model,
-            messages = message,)
+            messages = message)
 
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
             return response
         
-        else: # Run if set to local
+        else: # Run if ollama set to local
             response = chat(
                 model = self.model,
                 messages = message)
