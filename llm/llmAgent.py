@@ -2,16 +2,15 @@ from ollama import chat, Client
 from configHandler import getValue
 import openai
 import os
+from json import loads
 
 class llmAgent:
     """Instantiable object of ollama model. 
        History is optional """
-    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, history = None):
-        if history == None: # Allow for predefined memory
-            self.history = []
-        else:
-            self.history = history
-        
+    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, history = None, returnJson = False, maxTokens = None):
+        self.history = history if history != None else self.history = [] # Predefined memory?
+        self.returnJson = True if returnJson else self.returnJson = False # Return message as JSON object?
+        self.maxTokens = maxTokens if maxTokens != None else self.maxTokens = 500 # Max tokens, for openai
         self.systemMsg = systemMsg
         self.model = model
         self.remote = getValue('ollama_settings', 'remote')
@@ -32,13 +31,18 @@ class llmAgent:
         
         self.addHistory(usrMsg) # Append usrMsg to history
 
-        if self.llm == 'openai':    # Run if openai configured
+        if self.llm == 'openai': # Run if openai configured
             response = self.client.chat.completions.create(
                 model = 'self.model',
-                messages = message)
+                messages = message,
+                response_format={"type": "json_object"},
+                max_tokens = self.maxTokens)
             
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
-            return response
+
+            if self.returnJson:
+                return loads(response.choices[0].message.content) # Return message content as JSON
+            return response.choices[0].message.content # Return message content as str
         
         if self.remote: # Run if ollama set to remote
             response = self.client.chat(
