@@ -61,5 +61,14 @@ def getHAheaders():
         headers['authorization'] += " " + getValue('home_assistant_settings', 'token')
         return headers
 
+def getLightNames():
+        '''Returns a stringified list of all light aliases'''
+        conf = getConf()
+        lightIds = []
+        for light in getLights(conf):
+                lightIds.append(light['alias'])
+        
+        return str(lightIds)
+
 
                        
