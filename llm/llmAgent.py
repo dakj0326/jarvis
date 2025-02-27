@@ -1,8 +1,8 @@
 from ollama import chat, Client
+from os import getenv
 from configHandler import getValue
-import openai
-import os
 from json import loads
+import openai
 
 class llmAgent:
     """Instantiable object of ollama model. 
@@ -18,7 +18,7 @@ class llmAgent:
         self.llm = llm
 
         if self.llm == openai:  # Create openai client
-            self.client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+            self.client = openai.OpenAI(api_key=getenv('OPENAI_API_KEY'))
         elif self.remote:   # Create ollama client if llm set to ollama & remote
             self.client = Client(host=getValue('ollama_settings', 'host')) # Create client if set to run remote
 
@@ -50,7 +50,9 @@ class llmAgent:
             messages = message)
 
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
-            return response
+            if self.returnJson:
+                return loads(response['message']['content']) # Return message content as JSON
+            return response['message']['content'] # Return message content as str
         
         else: # Run if ollama set to local
             response = chat(
@@ -58,9 +60,11 @@ class llmAgent:
                 messages = message)
             
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
-            return response
+            if self.returnJson:
+                return loads(response['message']['content']) # Return message content as JSON
+            return response['message']['content'] # Return message content as str
         
-    def addHistory(self, msg: dict):    # Add to history while maintinging size
+    def addHistory(self, msg: dict):    # Add to history while maintaining size
         self.history.append(msg)
         if len(self.history) > self.memory:
             self.history.pop[0]
