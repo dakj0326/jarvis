@@ -1,11 +1,13 @@
 
 import openai
 import json
-import os
+from dotenv import load_dotenv
+from os import getenv
 
 class Jarvis:
     def __init__(self):
-        self.jarvis =  openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        load_dotenv()
+        self.jarvis =  openai.OpenAI(api_key=getenv('OPENAI_API_KEY'))
         self.conversation_history = []
         self.conversation_context = []
         
