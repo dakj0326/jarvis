@@ -3,7 +3,7 @@ import configparser
 
 def getConf():
     config = configparser.ConfigParser()
-    config.read('../config.ini')
+    config.read('./config.ini')
     return config
 
 def getLights():
@@ -35,7 +35,7 @@ def getSpeakers():
         return speakers
 
 def getValue(secName: str, value: str):
-        '''Return specific value from config'''
+        '''Return specific value from config as STR'''
         conf = getConf()
         return conf[secName].get(value)
 

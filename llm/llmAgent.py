@@ -2,22 +2,31 @@ from ollama import chat, Client
 from os import getenv
 from configHandler import getValue
 from json import loads
+from dotenv import load_dotenv
 import openai
 
 class llmAgent:
-    """Instantiable object of ollama model. 
-       History is optional """
-    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, history = None, returnJson = False, maxTokens = None):
-        self.history = history if history != None else self.history = [] # Predefined memory?
-        self.returnJson = True if returnJson else self.returnJson = False # Return message as JSON object?
-        self.maxTokens = maxTokens if maxTokens != None else self.maxTokens = 500 # Max tokens, for openai
+    """Instantiable object of llm. """
+    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, returnJson = False, history = None, maxTokens = None):
+        if history == None: # Predefined history?
+            self.history = []
+        else:
+            self.history = history
+        
+        if maxTokens == None: # Use other than configured max tokens?
+            self.maxTokens = int(getValue('llm_settings', 'max_tokens'))
+        else:
+            self.maxTokens = maxTokens
+
+        self.returnJson = returnJson # Return message as JSON object?
         self.systemMsg = systemMsg
         self.model = model
         self.remote = getValue('ollama_settings', 'remote')
-        self.memory = memory
+        self.memory = int(memory)
         self.llm = llm
 
-        if self.llm == openai:  # Create openai client
+        if self.llm == 'openai':  # Create openai client
+            load_dotenv()
             self.client = openai.OpenAI(api_key=getenv('OPENAI_API_KEY'))
         elif self.remote:   # Create ollama client if llm set to ollama & remote
             self.client = Client(host=getValue('ollama_settings', 'host')) # Create client if set to run remote
@@ -33,12 +42,12 @@ class llmAgent:
 
         if self.llm == 'openai': # Run if openai configured
             response = self.client.chat.completions.create(
-                model = 'self.model',
+                model = self.model,
                 messages = message,
                 response_format={"type": "json_object"},
                 max_tokens = self.maxTokens)
-            
-            self.addHistory(response['role': 'you', 'content': response['message']['content']])
+
+            self.addHistory(response.choices[0].message)
 
             if self.returnJson:
                 try:
