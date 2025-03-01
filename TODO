@@ -2,7 +2,7 @@ Testa om lightMain koden fungerar på kjellbergs maskin /S ---------------------
 
 Skriva om /sonos så att den anvädner sig av config.ini /S
 
-Implementera LLM inställningar från config.ini så att användaren kan välja/konfigurera vilken ai den vill använda /S
+Implementera LLM inställningar från config.ini så att användaren kan välja/konfigurera vilken ai den vill använda /S - Klar /S
 
 Automatiskt generera prompt åt ai från config.ini inställningar /S
 
@@ -15,3 +15,5 @@ Skapa protokoll för fördiga ljus och musik inställningar. /K
 Ge jarvis förmågan att skapa fler protokoll. /K
 
 Skapa en timer åt Jaris /K
+
+Tool Calling, https://platform.openai.com/docs/guides/function-calling?example=get-weather /S

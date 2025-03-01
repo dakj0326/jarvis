@@ -12,7 +12,7 @@ from configHandler import getLights, getDictValues, mergeDicts, getValue, getHAh
 
 debug = False #Used when payload results is wanted
 
-def main(_input: dict):
+def setLights(_input: dict):
     
     actions = dereference_input(_input)
     

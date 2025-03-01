@@ -1,6 +1,6 @@
 from llm import llmAgent as ai
 from llm import systemMsgs
-from lights import lightMain
+from tools import lightMain
 from llm import systemMsgs
 from configHandler import getValue
 
