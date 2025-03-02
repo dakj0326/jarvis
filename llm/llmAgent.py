@@ -1,10 +1,10 @@
 from ollama import chat, Client
 from os import getenv
 from configHandler import getValue
-from json import loads
+from json import loads, dumps
 from dotenv import load_dotenv
 import openai
-import json
+import re
 
 class llmAgent:
     """Instantiable object of llm. """
@@ -35,21 +35,26 @@ class llmAgent:
         self.addHistory(usrMsg) # Append usrMsg to history
 
         if self.llm == 'openai': # Run if openai configured
-            response = self.client.chat.completions.create(
+            response = self.client.chat.completions.with_raw_response.create(   # with_raw_response bör fungera
                 model = self.model,
                 messages = message,
                 tools = self.tools,
-                response_format={"type": "json_object"},
+                response_format = {"type": "json_object"},
                 max_tokens = self.maxTokens)
 
-            self.addHistory(response.choices[0].message)
+            resDict = loads(response.text)
+            message = resDict['choices'][0]['message']
+            messageStr = dumps(message) # Unfuckywucky
+            messageFixed = messageStr.replace('\\n', '') # Unfuckywucky
+            response = loads(messageFixed) # Unfuckywucky
+            self.addHistory(response)
 
             if self.returnJson:
                 try:
-                    return loads(response.choices[0].message.content) # Return message content as JSON
+                    return loads(response['content']) # Return message content as JSON
                 except Exception as e:
                     print('llm response not convertable to JSON, returning str: ', e)
-            return response.choices[0].message.content # Return message content as str
+            return response['content'] # Return message content as str
         
         if self.remote: # Run if ollama set to remote
             response = self.client.chat(

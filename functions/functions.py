@@ -25,7 +25,7 @@ functions = [
                         "description": "The brightness of the light, takes a value in the range 0-255"
                     },
                 },
-                "required": ["id", "state", "color", "brightness"],
+                "required": ["id", "state", "color", "brightness"]
             }
         }
     }

@@ -14,6 +14,6 @@ def get_openai_lights_msg():
     msg = {
             "role": "system",
             "content":
-            "Your job is to control lights with the help of the setLight function."
+            "Always respond in JSON. Your job is to control lights with the help of the setLight function."
             "If the user specifies no particular light set the light id to 'all'."}
     return msg
