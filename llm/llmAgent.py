@@ -4,24 +4,21 @@ from configHandler import getValue
 from json import loads
 from dotenv import load_dotenv
 import openai
+import json
 
 class llmAgent:
     """Instantiable object of llm. """
-    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, returnJson = False, tools = None, history = [], maxTokens = None):
-        if maxTokens == None: # Use other than configured max tokens?
-            self.maxTokens = int(getValue('llm_settings', 'max_tokens'))
-        else:
-            self.maxTokens = maxTokens
-
+    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, returnJson = False, tools = None, history = [], maxTokens = int(getValue('llm_settings', 'max_tokens'))):
+        self.maxTokens = maxTokens
         self.history = history  # Predefined history?
-        self.tools = tools  # Tools?
+        self.tools = tools
         self.returnJson = returnJson # Return message as JSON object?
         self.systemMsg = systemMsg
         self.model = model
         self.remote = getValue('ollama_settings', 'remote')
         self.memory = int(memory)
         self.llm = llm
-
+        
         if self.llm == 'openai':  # Create openai client
             load_dotenv()
             self.client = openai.OpenAI(api_key=getenv('OPENAI_API_KEY'))
@@ -41,9 +38,9 @@ class llmAgent:
             response = self.client.chat.completions.create(
                 model = self.model,
                 messages = message,
+                tools = self.tools,
                 response_format={"type": "json_object"},
-                max_tokens = self.maxTokens,
-                tools = self.tools)
+                max_tokens = self.maxTokens)
 
             self.addHistory(response.choices[0].message)
 
@@ -60,14 +57,14 @@ class llmAgent:
             messages = message,
             tools = self.tools)
 
-            self.addHistory(response['role': 'you', 'content': response['message']['content']])
+            self.addHistory(response['message'])
             if self.returnJson:
                 try:
-                    json = loads(response['message']['content']) # Return message content as JSON
+                    json = loads(response['message']) # Return message content as JSON
                     return json
                 except Exception as e:
                     print('llm response not convertable to JSON, returning str: ', e)
-            return response['message']['content'] # Return message content as str
+            return response['message'] # Return message content as str
         
         else: # Run if ollama set to local
             response = chat(
@@ -78,11 +75,11 @@ class llmAgent:
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
             if self.returnJson:
                 try:
-                    json = loads(response['message']['content']) # Return message content as JSON
+                    json = loads(response['message']) # Return message content as JSON
                     return json
                 except Exception as e:
                     print('llm response not convertable to JSON, returning str: ', e)
-            return response['message']['content'] # Return message content as str
+            return response['message'] # Return message content as str
         
     def addHistory(self, msg: dict):    # Add to history while maintaining size
         self.history.append(msg)

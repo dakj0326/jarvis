@@ -63,11 +63,10 @@ def getHAheaders():
 
 def getLightNames():
         '''Returns a stringified list of all light aliases'''
-        conf = getConf()
         lightIds = []
-        for light in getLights(conf):
-                lightIds.append(light['alias'])
-        
+        for light in getLights():
+                lightIds.append(light[0]['alias'])
+
         return str(lightIds)
 
 

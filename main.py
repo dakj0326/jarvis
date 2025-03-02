@@ -8,7 +8,7 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 from llm import jarvis as j
-from tools import lightMain
+from functions import lightMain
 
 jarvis = j.Jarvis()
 
