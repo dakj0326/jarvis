@@ -47,11 +47,8 @@ class llmAgent:
             history = {'role': response.choices[0].message.role,
                        'content': response.choices[0].message.content}
             
+            self.addHistory(history)
             if self.tools: # Add call to history
-                if response.choices[0].message.tool_calls != None:
-                    history['tool_calls'] = response.choices[0].message.tool_calls # TODO kan inte stoppa tool calls i history utan gnäll
-
-                self.addHistory(history)
                 return response.choices[0].message.tool_calls # Return tool call
 
             try:
