@@ -16,7 +16,7 @@ while True:
     chatResponse = talkAgent.query(usrInput)
     toolResponse = toolAgent.query(usrInput)
     print('Jarvis: ', chatResponse)
-    print('Tool:', toolResponse[0].function)
+    #print('Tool:', toolResponse[0].function)
 
 
     def callFunc(funcList):

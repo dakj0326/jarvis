@@ -87,6 +87,6 @@ class llmAgent:
         
 
     def addHistory(self, msg: dict):    # Add to history while maintaining size Måste gö såhär av någon anledning, instanserna delar self.history genom denna funktion, hur vettefan
-        self.history.append(msg)
+        self.history.insert(0, msg)
         if len(self.history) > self.memory:
-            self.history.pop(0)
+            self.history.pop(-1)
