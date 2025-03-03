@@ -58,7 +58,7 @@ class llmAgent:
         if self.remote: # Run if ollama set to remote
             response = self.client.chat(
             model = self.model,
-            messages = message,
+            messages = self.history,
             tools = self.tools)
 
             self.addHistory(response['message'])
@@ -73,7 +73,7 @@ class llmAgent:
         else: # Run if ollama set to local
             response = chat(
                 model = self.model,
-                messages = message,
+                messages = self.history,
                 tools = self.tools)
             
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
