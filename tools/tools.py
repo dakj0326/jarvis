@@ -1,6 +1,6 @@
 from configHandler import getLightNames
-functions = [
-    {
+def getTools():
+    return [{
         "type": "function",
         "function": {
             "name": "setLights",
@@ -17,16 +17,18 @@ functions = [
                         "description": "The on/off state of the light"
                     },
                     "color": {
-                        "type": "Tuple(int, int, int)",
-                        "description": "The RGB color value of the light represented as the tuple (R, G, B), each integer have a range of 0-255"
+                        "type": "array",
+                        "description": "The RGB color value of the light represented as the aray [R, G, B], each element is an integer and have a range of 0-255",
+                        "items": {
+                            "type": "number"
+                        }
                     },
                     "brightness": {
-                        "type": "int",
+                        "type": "number",
                         "description": "The brightness of the light, takes a value in the range 0-255"
                     },
                 },
                 "required": ["id", "state", "color", "brightness"]
             }
         }
-    }
-]
+    }]

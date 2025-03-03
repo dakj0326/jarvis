@@ -1,23 +1,21 @@
 from ollama import chat, Client
 from os import getenv
 from configHandler import getValue
-from json import loads, dumps
+from json import loads
 from dotenv import load_dotenv
 import openai
-import re
 
 class llmAgent:
     """Instantiable object of llm. """
-    def __init__(self, systemMsg: dict, model: str, memory: int, llm: str, returnJson = False, tools = None, history = [], maxTokens = int(getValue('llm_settings', 'max_tokens'))):
-        self.maxTokens = maxTokens
-        self.history = history  # Predefined history?
+    def __init__(self, systemMsg: dict, tools = None):
         self.tools = tools
-        self.returnJson = returnJson # Return message as JSON object?
+        self.history = []
         self.systemMsg = systemMsg
-        self.model = model
+        self.maxTokens = int(getValue('llm_settings', 'max_tokens'))
+        self.model = getValue('llm_settings', 'model')
         self.remote = getValue('ollama_settings', 'remote')
-        self.memory = int(memory)
-        self.llm = llm
+        self.memory = int(getValue('llm_settings', 'memory'))
+        self.llm = getValue('llm_settings', 'source')
         
         if self.llm == 'openai':  # Create openai client
             load_dotenv()
@@ -30,31 +28,38 @@ class llmAgent:
         usrMsg = {'role': 'user', 'content': userPrompt}
         message = [self.systemMsg, usrMsg]
         if len(self.history) != 0: # Append history to msg if it contains any entries
-            message.append(self.history)
+           message.extend(self.history) #TODO Merge message list with history list to fix error. Fix? /s Yes /S No /S
         
-        self.addHistory(usrMsg) # Append usrMsg to history
+        self.addHistory(usrMsg) # Append usrMsg to history 
 
         if self.llm == 'openai': # Run if openai configured
-            response = self.client.chat.completions.with_raw_response.create(   # with_raw_response bör fungera
+            response = self.client.chat.completions.create(   
                 model = self.model,
                 messages = message,
-                tools = self.tools,
                 response_format = {"type": "json_object"},
+                tools = self.tools,
                 max_tokens = self.maxTokens)
+            
+            
+            if response.choices[0].message.content == None: # Api suger dase
+                response.choices[0].message.content = ''
 
-            resDict = loads(response.text)
-            message = resDict['choices'][0]['message']
-            messageStr = dumps(message) # Unfuckywucky
-            messageFixed = messageStr.replace('\\n', '') # Unfuckywucky
-            response = loads(messageFixed) # Unfuckywucky
-            self.addHistory(response)
+            history = {'role': response.choices[0].message.role,
+                       'content': response.choices[0].message.content}
+            
+            if self.tools: # Add call to history
+                if response.choices[0].message.tool_calls != None:
+                    history['tool_calls'] = response.choices[0].message.tool_calls # TODO kan inte stoppa tool calls i history utan gnäll
 
-            if self.returnJson:
-                try:
-                    return loads(response['content']) # Return message content as JSON
-                except Exception as e:
-                    print('llm response not convertable to JSON, returning str: ', e)
-            return response['content'] # Return message content as str
+                self.addHistory(history)
+                return response.choices[0].message.tool_calls # Return tool call
+
+            try:
+                content = loads(response.choices[0].message.content)
+                return content['response'] # Return message content response as JSON
+            except Exception as e:
+                print('Message content not convertable to JSON, returning str: ', e)
+            return response.choices[0].message.content # Return message content as str
         
         if self.remote: # Run if ollama set to remote
             response = self.client.chat(
@@ -63,7 +68,7 @@ class llmAgent:
             tools = self.tools)
 
             self.addHistory(response['message'])
-            if self.returnJson:
+            if self.returnCall:
                 try:
                     json = loads(response['message']) # Return message content as JSON
                     return json
@@ -78,7 +83,7 @@ class llmAgent:
                 tools = self.tools)
             
             self.addHistory(response['role': 'you', 'content': response['message']['content']])
-            if self.returnJson:
+            if self.returnCall:
                 try:
                     json = loads(response['message']) # Return message content as JSON
                     return json
@@ -86,7 +91,8 @@ class llmAgent:
                     print('llm response not convertable to JSON, returning str: ', e)
             return response['message'] # Return message content as str
         
-    def addHistory(self, msg: dict):    # Add to history while maintaining size
+
+    def addHistory(self, msg: dict):    # Add to history while maintaining size Måste gö såhär av någon anledning, instanserna delar self.history genom denna funktion, hur vettefan
         self.history.append(msg)
         if len(self.history) > self.memory:
-            self.history.pop[0]
+            self.history.pop(0)

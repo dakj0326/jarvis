@@ -8,7 +8,7 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 from llm import jarvis as j
-from functions import lightMain
+from tools.lightMain import setLights
 
 jarvis = j.Jarvis()
 
@@ -32,7 +32,7 @@ while True:
                 speaker_response = jarvis.speaker_response()  
     
     if len(light_response) != 0:
-        lightMain.setLights(light_response)
+        setLights(light_response)
 
         
 #

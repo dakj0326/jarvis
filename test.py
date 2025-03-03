@@ -1,32 +1,19 @@
-from llm import llmAgent as ai
-from llm import systemMsgs
-from functions import functions
+from tools.tools import getTools
+from llm.llmAgent import llmAgent
 from llm import systemMsgs
 from configHandler import getValue
-import json
+
 
 # Setup response agent
-responseAgent = ai.llmAgent(systemMsgs.get_openai_fast_msg(),
-                            getValue('llm_settings', 'model'),
-                            getValue('llm_settings', 'memory'),
-                            getValue('llm_settings', 'source'),
-                            True)
-
-# Setup tool calling agent
-toolCaller = ai.llmAgent(systemMsgs.get_openai_lights_msg(),
-                            getValue('llm_settings', 'model'),
-                            getValue('llm_settings', 'memory'),
-                            getValue('llm_settings', 'source'),
-                            True,
-                            functions.functions)
+tools = getTools()
+talkAgent = llmAgent(systemMsgs.get_openai_fast_msg())
+toolAgent = llmAgent(systemMsgs.get_openai_lights_msg(), tools)
 
 while True:
     # User in
     usrInput = input('User: ')
     # chat response
-    response = responseAgent.query(usrInput)
-    print('Jarvis: ', response)
-
-    # Tool call
-    response = toolCaller = toolCaller.query(usrInput)
-    print('tool call: ', response)
+    chatResponse = talkAgent.query(usrInput)
+    toolResponse = toolAgent.query(usrInput)
+    print('Jarvis: ', chatResponse)
+    print('Tool:', toolResponse)
