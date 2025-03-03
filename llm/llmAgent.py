@@ -1,6 +1,6 @@
 from ollama import chat, Client
 from os import getenv
-from configHandler import getValue
+from configHandler import getValue, mergeDicts
 from json import loads
 from dotenv import load_dotenv
 import openai
@@ -26,16 +26,13 @@ class llmAgent:
     
     def query(self, userPrompt: str):
         usrMsg = {'role': 'user', 'content': userPrompt}
-        message = [self.systemMsg, usrMsg]
-        if len(self.history) != 0: # Append history to msg if it contains any entries
-           message.extend(self.history) #TODO Merge message list with history list to fix error. Fix? /s Yes /S No /S
-        
+        self.addHistory(self.systemMsg)
         self.addHistory(usrMsg) # Append usrMsg to history 
 
         if self.llm == 'openai': # Run if openai configured
-            response = self.client.chat.completions.create(   
+            response = self.client.chat.completions.create(
                 model = self.model,
-                messages = message,
+                messages = self.history,
                 response_format = {"type": "json_object"},
                 tools = self.tools,
                 max_tokens = self.maxTokens)
@@ -44,10 +41,10 @@ class llmAgent:
             if response.choices[0].message.content == None: # Api suger dase
                 response.choices[0].message.content = ''
 
-            history = {'role': response.choices[0].message.role,
+            returnMessage = {'role': response.choices[0].message.role,
                        'content': response.choices[0].message.content}
             
-            self.addHistory(history)
+            self.addHistory(returnMessage)
             if self.tools: # Add call to history
                 return response.choices[0].message.tool_calls # Return tool call
 
