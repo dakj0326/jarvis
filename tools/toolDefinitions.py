@@ -1,9 +1,11 @@
-from configHandler import getLightNames
+from configHandler import getLightNames, getManualNames
 from tools.setLights import setLights
+from tools.mail import getManual
 
 # Dict of all available functions
 functions = {
-    'setLights': setLights
+    'setLights': setLights,
+    'getManual': getManual
 }
 
 def getTools():
@@ -40,4 +42,21 @@ def getTools():
                 "required": ["id", "state", "color", "brightness"]
             }
         }
-    }]
+    }, {"type": "function",
+        "function": {
+            "name": "getManual",
+            "description": "Sends a manual to the user via email",
+            "parameters": {
+                "type": "object",
+                    "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The id of the manuals to be altered. The available IDS are: " + 
+                        getManualNames() + ". If no manual is specified set id to 'manual.full'."
+                    }
+                },
+                "required": ["id"]
+            }
+        }
+    }
+    ]

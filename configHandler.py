@@ -69,5 +69,27 @@ def getLightNames():
 
         return str(lightIds)
 
+def getManuals():
+        '''Returns all manual settings as a list of dicts'''
+        manuals = []
+        data = []
+        conf = getConf()
+        for sec in conf.sections():             
+                if sec.startswith('manual'):
+                        for atr in conf[sec]:
+                                item:dict = {atr: conf[sec][atr]}
+                                data.append(item)
+                        manuals.append(data)
+                        data = []        
+        return manuals
+
+def getManualNames():
+        '''Returns a stringified list of all light aliases'''
+        manualIds = []
+        for manual in getManuals():
+                manualIds.append(manual[0]['alias'])
+
+        return str(manualIds)
+
 
                        
