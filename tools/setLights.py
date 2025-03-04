@@ -37,4 +37,5 @@ def setLights(id: str, state: bool, color: list, brightness: int):
                 print("Successfully executed: ", action)
             else:
                 print("Failed to execute:", action, " :: ", {response.status_code})
-                print("Response:", response.text)    
+                print("Response:", response.text)
+        break    
