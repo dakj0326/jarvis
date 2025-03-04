@@ -2,13 +2,15 @@ from tools.toolDefinitions import getTools, functions
 from llm.llmAgent import llmAgent
 from llm import systemMsgs
 from json import loads
+import threading
 
 def parseToolCalls(funcs):
     for call in funcs:
         try:
             func = functions[call.function.name]
             args = loads(call.function.arguments)
-            func(**args)
+            thread = threading.Thread(target=func, kwargs= args, daemon=True)
+            thread.start()
         except Exception as e:
             print(f'Error calling function: {e}')
 
