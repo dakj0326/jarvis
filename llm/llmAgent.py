@@ -3,8 +3,7 @@ from os import getenv
 from configHandler import getValue, mergeDicts
 from json import loads
 from dotenv import load_dotenv
-import openai
-from openai import NotGiven
+from openai import NotGiven, OpenAI
 
 class llmAgent:
     """Instantiable object of llm. """
@@ -21,7 +20,7 @@ class llmAgent:
         
         if self.llm == 'openai':  # Create openai client
             load_dotenv()
-            self.client = openai.OpenAI(api_key=getenv('OPENAI_API_KEY'))
+            self.client = OpenAI(api_key=getenv('OPENAI_API_KEY'))
         elif self.remote:   # Create ollama client if llm set to ollama & remote
             self.client = Client(host=getValue('ollama_settings', 'host')) # Create client if set to run remote
 
