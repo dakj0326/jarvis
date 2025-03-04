@@ -28,5 +28,5 @@ while True:
     
     toolResponse = toolAgent.query(usrInput)
     if toolResponse != None:
-        #updateCallHistory(toolResponse[0].function)
-        parseToolCalls(toolResponse)
+        updateCallHistory(toolResponse[0].function)
+        #parseToolCalls(toolResponse)
