@@ -11,21 +11,18 @@ def parseToolCalls(funcs):
             func(**args)
         except Exception as e:
             print(f'Error calling function: {e}')
-        
+
 
 # Setup response agent
 talkAgent = llmAgent(systemMsgs.get_openai_fast_msg(), False)
 toolAgent = llmAgent(systemMsgs.get_openai_lights_msg(), True, getTools())
 
 while True:
-    # User in
     usrInput = input('User: ')
-    # chat response
-    chatResponse = talkAgent.query(usrInput)
-    toolResponse = toolAgent.query(usrInput)
+
+    chatResponse = talkAgent.query(usrInput) # chat response
     print('Jarvis: ', chatResponse)
-    #print(f'Tool: {toolResponse}')
+    
+    toolResponse = toolAgent.query(usrInput)
     if toolResponse != None:
         parseToolCalls(toolResponse)
-
-
