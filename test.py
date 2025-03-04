@@ -3,14 +3,15 @@ from llm.llmAgent import llmAgent
 from llm import systemMsgs
 from json import loads
 import threading
+from protocols.settingsTracking import updateCallHistory
 
 def parseToolCalls(funcs):
     for call in funcs:
         try:
             func = functions[call.function.name]
             args = loads(call.function.arguments)
-            thread = threading.Thread(target=func, kwargs= args, daemon=True)
-            thread.start()
+            funcThread = threading.Thread(target=func, kwargs= args, daemon=True)
+            funcThread.start()
         except Exception as e:
             print(f'Error calling function: {e}')
 
@@ -27,4 +28,5 @@ while True:
     
     toolResponse = toolAgent.query(usrInput)
     if toolResponse != None:
+        #updateCallHistory(toolResponse[0].function)
         parseToolCalls(toolResponse)
