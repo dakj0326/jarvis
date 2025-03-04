@@ -14,8 +14,8 @@ def parseToolCalls(funcs):
 
 
 # Setup response agent
-talkAgent = llmAgent(systemMsgs.get_openai_fast_msg(), False)
-toolAgent = llmAgent(systemMsgs.get_openai_lights_msg(), True, getTools())
+talkAgent = llmAgent(systemMsgs.openai_fast_msg, False)
+toolAgent = llmAgent(systemMsgs.openai_lights_msg, True, getTools())
 
 while True:
     usrInput = input('User: ')
