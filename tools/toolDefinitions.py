@@ -11,13 +11,13 @@ def getTools():
         "type": "function",
         "function": {
             "name": "setLights",
-            "description": "Sets the properties of lights. The available IDS are: " + getLightNames(),
+            "description": "Sets the properties of lights.",
             "parameters": {
                 "type": "object",
                     "properties": {
                     "id": {
                         "type": "string",
-                        "description": "The id of the light to be altered."
+                        "description": "The id of the light to be altered. The available IDS are: " + getLightNames() + ". If no light is specified set id to 'all'."
                     },
                     "state": {
                         "type": "boolean",
