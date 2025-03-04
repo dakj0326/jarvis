@@ -1,18 +1,21 @@
-from tools.tools import getTools
+from tools.toolDefinitions import getTools, functions
 from llm.llmAgent import llmAgent
 from llm import systemMsgs
-import json
+from json import loads
 
+def parseToolCalls(funcs):
+    for call in funcs:
+        try:
+            func = functions[call.function.name]
+            args = loads(call.function.arguments)
+            func(**args)
+        except Exception as e:
+            print(f'Error calling function: {e}')
+        
 
 # Setup response agent
-tools = getTools()
 talkAgent = llmAgent(systemMsgs.get_openai_fast_msg(), False)
-toolAgent = llmAgent(systemMsgs.get_openai_lights_msg(), True, tools)
-
-def parseFunc(funcList):
-    for name, args in enumerate(funcList):
-        print(f'tool {name}: {args} ')
-
+toolAgent = llmAgent(systemMsgs.get_openai_lights_msg(), True, getTools())
 
 while True:
     # User in
@@ -21,8 +24,8 @@ while True:
     chatResponse = talkAgent.query(usrInput)
     toolResponse = toolAgent.query(usrInput)
     print('Jarvis: ', chatResponse)
-    print(f'Tool: {toolResponse}')
+    #print(f'Tool: {toolResponse}')
     if toolResponse != None:
-        parseFunc(toolResponse)
+        parseToolCalls(toolResponse)
 
 

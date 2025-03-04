@@ -10,13 +10,13 @@ if parent_dir not in sys.path:
 
 from configHandler import getLights, getDictValues, mergeDicts, getValue, getHAheaders
 
-debug = False #Used when payload results is wanted
+debug = True #Used when payload results is wanted
 
 def setLights(_input: dict): # [id, state ('on'/'off), Tuple (R, G, B), brighness int (0-255)]
     
     actions = dereference_input(_input)
     
-    print(actions)
+    print('actions: ', actions) #[['light.hall', 'on', [255, 160, 60], 255]]
     if actions != None:
         for action in actions:    
             lights = getLights() # Iterera över konfigurerade lampor för att hitta korrekt lampa

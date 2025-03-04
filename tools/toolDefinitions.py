@@ -1,4 +1,11 @@
 from configHandler import getLightNames
+from tools.setLights import setLights
+
+# Dict of all available functions
+functions = {
+    'setLights': setLights
+}
+
 def getTools():
     return [{
         "type": "function",
@@ -7,7 +14,7 @@ def getTools():
             "description": "Sets the properties of lights. The available IDS are: " + getLightNames(),
             "parameters": {
                 "type": "object",
-                "properties": {
+                    "properties": {
                     "id": {
                         "type": "string",
                         "description": "The id of the light to be altered."
