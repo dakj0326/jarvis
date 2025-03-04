@@ -4,26 +4,10 @@ Implementera LLM inställningar från config.ini så att användaren kan välja/
 Automatiskt generera prompt åt ai från config.ini inställningar /S -------------------------------------------------------------------------- Klar /S
 Tool Calling, https://platform.openai.com/docs/guides/function-calling?example=get-weather /S ----------------------------------------------- Klar /S
 Fixa så att setLights sker i en annan thread /K --------------------------------------------------------------------------------------------- Klar /K
-
-
 Skriva om /sonos så att den anvädner sig av config.ini /S
-
 Skapa funtioner så att jarvis kan ändra i config.ini /K
-
 Skapa protokoll för fördiga ljus och musik inställningar. /K
- 
 Ge jarvis förmågan att skapa fler protokoll. /K
-
-Skapa en timer åt Jaris /K
-
-
-tool call historik
-calls sparas löpande i katergorier av deras typ
-nya calls byter ut äldre om de använder samma ha_id
-kategorin med alla calls kan sparas
-sparade kategorier kan slås samman i protokoll
-protokoll är alltså en lista med kategorier av tool calls som kan köras
-protkoll sparas i en separate textfil under deras namn
-protokoll kan tas bort 
-
-
+Skapa en timer åt Jaris /K ------------------------------------------------------------------------------------------------------------------ Klar /K
+Skapa en Mail åt Jarvis /K ------------------------------------------------------------------------------------------------------------------ Klar /K
+Skriv en pdf för lights /K
