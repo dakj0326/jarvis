@@ -12,11 +12,10 @@ def setLights(id: str, state: bool, color: list, brightness: int):
     
     for light in lights: #
         values = getDictValues(light)
+        action = [id, state, color, brightness]
         if action[0] not in values and action[0] == 'all':
             action = [light['alias'], state, color, brightness]
-        else:
-            action = [id, state, color, brightness]
-
+        
         lconf = mergeDicts(light)
         # POST till HA
         payload = {}
