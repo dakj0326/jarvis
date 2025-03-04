@@ -3,7 +3,7 @@ import json
 
 from configHandler import getLights, getDictValues, mergeDicts, getValue, getHAheaders
 
-def setLights(id: str, state: bool, color: list, brightness: int): # [id, state ('on'/'off), Tuple (R, G, B), brighness int (0-255)]
+def setLights(id: str, state: bool, color: list, brightness: int):
     debug = False
     # Turn input into [['light.hall', 'on', [255, 160, 60], 255]]
     action = [id, state, color, brightness]
@@ -36,4 +36,4 @@ def setLights(id: str, state: bool, color: list, brightness: int): # [id, state 
                     print("Successfully executed: ", action)
                 else:
                     print("Failed to execute:", action, " :: ", {response.status_code})
-                    print("Response:", response.text)
+                    print("Response:", response.text)    

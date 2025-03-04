@@ -8,6 +8,7 @@ def parseToolCalls(funcs):
         try:
             func = functions[call.function.name]
             args = loads(call.function.arguments)
+            print(args)
             func(**args)
         except Exception as e:
             print(f'Error calling function: {e}')
