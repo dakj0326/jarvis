@@ -12,11 +12,11 @@ def setLights(id: str, state: bool, color: list, brightness: int):
     
     for light in lights: #
         values = getDictValues(light)
+        lconf = mergeDicts(light)
         action = [id, state, color, brightness]
         if action[0] not in values and action[0] == 'all':
-            action = [light['alias'], state, color, brightness]
+            action = [lconf['alias'], state, color, brightness]
         
-        lconf = mergeDicts(light)
         # POST till HA
         payload = {}
         url = getValue('home_assistant_settings', 'url')
