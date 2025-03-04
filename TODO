@@ -16,3 +16,14 @@ Ge jarvis förmågan att skapa fler protokoll. /K
 
 Skapa en timer åt Jaris /K
 
+
+tool call historik
+calls sparas löpande i katergorier av deras typ
+nya calls byter ut äldre om de använder samma ha_id
+kategorin med alla calls kan sparas
+sparade kategorier kan slås samman i protokoll
+protokoll är alltså en lista med kategorier av tool calls som kan köras
+protkoll sparas i en separate textfil under deras namn
+protokoll kan tas bort 
+
+
