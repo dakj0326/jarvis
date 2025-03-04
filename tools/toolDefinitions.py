@@ -17,7 +17,9 @@ def getTools():
                     "properties": {
                     "id": {
                         "type": "string",
-                        "description": "The id of the light to be altered. The available IDS are: " + getLightNames() + ". If no light is specified set id to 'all'."
+                        "description": "The id of the light to be altered. The available IDS are: " + 
+                        getLightNames() + ". If no light is specified set id to 'all'." + 
+                        "if the user specifies no particular color set the color value to none"
                     },
                     "state": {
                         "type": "boolean",
