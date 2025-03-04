@@ -14,6 +14,7 @@ def setLights(id: str, state: bool, color: list, brightness: int): # [id, state 
     
     for light in lights: #
         values = getDictValues(light)
+        print(action[0], values)
         if action[0] in values:
             lconf = mergeDicts(light)
             # POST till HA
@@ -27,7 +28,9 @@ def setLights(id: str, state: bool, color: list, brightness: int): # [id, state 
             else: # If state off
                 url += lconf['uri_off']
             # Gammala koden för post men headers hämtas från config.ini
+            print("1")
             response = requests.post(url, headers=getHAheaders(), data=json.dumps(payload))
+            print("2")
             if debug:
                 print('payload: ',payload)
                 print('url: ', url)
